@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sept à la Maison - Calendrier</title>
+    <style>
+        :root {
+            --bg-creme: #FDFBF7;
+            --text-color: #3E3B35;
+            --border-color: #EAE6DF;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-creme);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        header nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.9rem;
+        }
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* GRILLE CALENDRIER (6 lignes x 8 colonnes) */
+        .calendar-container {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 12px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Style de base pour TOUTES les cases */
+        .cell {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10px;
+            box-sizing: border-box;
+            aspect-ratio: 1 / 1; /* Force la case à rester carrée */
+            position: relative;
+        }
+
+        /* Case avec lien (jours du calendrier) */
+        .cell-link {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .cell-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        /* Style des textes d'entête (Mois, Jours, Thématiques) */
+        .cell-month { background-color: #3E3B35; color: #ffffff; font-weight: bold; }
+        .cell-day { background-color: #F3EFE9; font-weight: 600; font-size: 0.9rem; }
+        .cell-theme { background-color: #F9F6F0; font-style: italic; font-size: 0.85rem; padding: 5px; }
+
+        /* Contenu d'une case produit */
+        .cell img {
+            max-width: 75%;
+            max-height: 75%;
+            object-fit: contain;
+            margin-top: 5px;
+        }
+        .day-num {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #A39274;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            margin-top: 5px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #7A756C;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HAUT DE PAGE -->
+    <header>
+        <h1>Sept à la maison</h1>
+        <nav>
+            <a href="#accueil">Accueil</a>
+            <a href="#categories">Catégories</a>
+            <a href="#a-propos">À propos</a>
+        </nav>
+    </header>
+
+    <!-- GRILLE DE 48 CASES -->
+    <div class="calendar-container">
+        
+        <!-- LIGNE 1 : Entêtes (8 cases) -->
+        <div class="cell cell-month">MAI</div>
+        <div class="cell cell-day">Lun</div>
+        <div class="cell cell-day">Mar</div>
+        <div class="cell cell-day">Mer</div>
+        <div class="cell cell-day">Jeu</div>
+        <div class="cell cell-day">Ven</div>
+        <div class="cell cell-day">Sam</div>
+        <div class="cell cell-day">Dim</div>
+
+        <!-- LIGNE 2 : Thème 1 + 7 cases jours (Exemple : Jours 1 à 7) -->
+        <div class="cell cell-theme">Déco Salon</div>
+        <a href="LIEN_AMAZON_OU_SITE" target="_blank" class="cell cell-link"><span class="day-num">1</span><img src="images/placeholder.png" alt="Produit"></a>
+        <a href="LIEN_AMAZON_OU_SITE" target="_blank" class="cell cell-link"><span class="day-num">2</span><img src="images/placeholder.png" alt="Produit"></a>
+        <a href="LIEN_AMAZON_OU_SITE" target="_blank" class="cell cell-link"><span class="day-num">3</span><img src="images/placeholder.png" alt="Produit"></a>
+        <a href="LIEN_AMAZON_OU_SITE" target="_blank" class="cell cell-link"><span class="day-num">4</span><img src="images/placeholder.png" alt="Produit"></a>
+        <a href="LIEN_AMAZON_OU_SITE" target="_blank" class="cell cell-link"><span class="day-num">5</span><img src="images/placeholder.png" alt="Produit"></a>
+        <a href="LIEN_AMAZON_OU_SITE" target="_blank" class="cell cell-link"><span class="day-num">6</span><img src="images/placeholder.png" alt="Produit"></a>
+        <a href="LIEN_AMAZON_OU_SITE" target="_blank" class="cell cell-link"><span class="day-num">7</span><img src="images/placeholder.png" alt="Produit"></a>
+
+        <!-- LIGNE 3 : Thème 2 + 7 cases jours (Exemple : Jours 8 à 14) -->
+        <div class="cell cell-theme">Cuisine d'été</div>
+        <a href="#" class="cell cell-link"><span class="day-num">8</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">9</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">10</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">11</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">12</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">13</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">14</span></a>
+
+        <!-- LIGNE 4 : Thème 3 + 7 cases jours (Exemple : Jours 15 à 21) -->
+        <div class="cell cell-theme">Côté Jardin</div>
+        <a href="#" class="cell cell-link"><span class="day-num">15</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">16</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">17</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">18</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">19</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">20</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">21</span></a>
+
+        <!-- LIGNE 5 : Thème 4 + 7 cases jours (Exemple : Jours 22 à 28) -->
+        <div class="cell cell-theme">Bien-être</div>
+        <a href="#" class="cell cell-link"><span class="day-num">22</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">23</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">24</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">25</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">26</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">27</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">28</span></a>
+
+        <!-- LIGNE 6 : Thème 5 + 7 cases jours (Exemple : Jours 29 à 31 + cases vides) -->
+        <div class="cell cell-theme">Loisirs Famille</div>
+        <a href="#" class="cell cell-link"><span class="day-num">29</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">30</span></a>
+        <a href="#" class="cell cell-link"><span class="day-num">31</span></a>
+        <div class="cell"></div> <!-- Case vide de fin de mois -->
+        <div class="cell"></div> <!-- Case vide de fin de mois -->
+        <div class="cell"></div> <!-- Case vide de fin de mois -->
+        <div class="cell"></div> <!-- Case vide de fin de mois -->
+
+    </div>
+
+    <!-- PIED DE PAGE -->
+    <footer>
+        <p>&copy; 2026 Sept à la maison - Inspirations & Liens Affiliés. En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises.</p>
+    </footer>
+
+</body>
+</html>
