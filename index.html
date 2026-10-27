@@ -113,13 +113,26 @@
             text-align: center;
         }
         .archive-section h3 { text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px; margin-bottom: 30px; color: #7A756C; }
-        .months-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+       .months-grid {
+    display: grid;
+    /* Force exactement 3 colonnes de taille égale */
+    grid-template-columns: repeat(3, 1fr); 
+    /* Force exactement 4 lignes de taille égale */
+    grid-template-rows: repeat(4, 1fr); 
+    gap: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Optimisation pour que la grille reste lisible sur téléphone mobile */
+@media (max-width: 600px) {
+    .months-grid {
+        /* Passe en 2 colonnes sur mobile pour éviter que ce soit trop serré */
+        grid-template-columns: repeat(2, 1fr); 
+        grid-template-rows: auto;
+    }
+}
+
         .month-card {
             background: var(--bg-creme);
             border: 1px solid var(--border-color);
@@ -193,6 +206,20 @@
             <a href="novembre/" class="month-card">Novembre</a>
             <a href="decembre/" class="month-card">Décembre</a>
         </div>
+    </div>
+
+        <!-- SECTION TEXTUELLE ET MAILLAGE SEO ACCUEIL (Pour donner de la matière à Google) -->
+    <div class="seo-section" style="max-width: 800px; margin: 50px auto 20px auto; padding: 30px; background-color: #ffffff; border: 1px solid var(--border-color); border-radius: 12px; font-size: 0.95rem; line-height: 1.6; color: #5A554C; text-align: left;">
+        <h3 style="font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-color); margin-top: 0; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Le Mag d’Inspirations pour une Maison Chaleureuse</h3>
+        <p>
+            Bienvenue sur <strong>Sept à la maison</strong>, votre rendez-vous quotidien dédié à l’art de vivre, au fait-maison et à l’harmonie intérieure. Au fil des saisons, notre mission est de vous accompagner pour transformer votre espace de vie en un véritable refuge douillet, tout en cultivant des moments authentiques en famille. À travers nos calendriers mensuels interactifs inspirés de l’esthétique épurée de Pinterest, découvrez chaque jour une idée sélectionnée avec soin pour embellir votre quotidien.
+        </p>
+        <p>
+            Notre univers s'articule autour de thématiques essentielles pour la vie à la maison. Laissez-vous inspirer par nos sélections de <strong>décoration d'intérieur tendance</strong>, où le minimalisme chaleureux, les matières naturelles et le style bohème ou <em>kinfolk</em> sont mis à l'honneur. Côté extérieur, nous vous partageons des conseils pratiques pour <strong>aménager un jardin paysager</strong>, cultiver un potager biologique au rythme de la nature et réussir vos plantations saisonnières.
+        </p>
+        <p>
+            Parce que la maison est le cœur de la vie de famille, nous explorons également des <strong>recettes de cuisine simples et réconfortantes</strong> mettant en valeur les produits de saison, ainsi que des idées de loisirs créatifs et de sorties pour petits et grands. Enfin, nos dossiers dédiés au bien-être au quotidien vous invitent à ralentir (<em>slow living</em>) et à instaurer des rituels cocooning apaisants. Explorez nos calendriers, téléchargez nos ressources gratuites et découvrez le savoir-faire de nos artisans coups de cœur.
+        </p>
     </div>
 
     <footer>
