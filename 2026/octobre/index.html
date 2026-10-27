@@ -86,36 +86,72 @@
             z-index: 1;
         }
 
-        /* --- STYLE CASE BLOQUÉE (FUTUR) --- */
-        .cell-locked {
-            cursor: not-allowed;
-            background-color: #F5F2EC;
-        }
-        .cell-locked::before {
-            content: "⏳";
-            font-size: 1.5rem;
-            opacity: 0.6;
-        }
-        .cell-locked img {
-            display: none;
-        }
+   /* --- EFFET 3D CARTE QUI SE RETOURNE (FUTUR) --- */
+.cell-future {
+    perspective: 1000px; /* Crée l'effet de profondeur 3D */
+    background-color: transparent !important;
+    border: none !important;
+    cursor: pointer;
+}
 
-        /* Message d'alerte éphémère */
-        .toast-message {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #3E3B35;
-            color: #ffffff;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            z-index: 10;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            display: none;
-            animation: fadeIn 0.3s;
-        }
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+/* Classe déclenchée au survol ou au clic en JavaScript */
+.cell-future:hover .card-inner, .cell-future.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Face Avant et Face Arrière */
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* Face Avant : Fond crème avec un point d'interrogation discret et le numéro du jour */
+.card-front {
+    background-color: #FBF9F4;
+    color: var(--text-color);
+}
+.card-front::after {
+    content: "✨";
+    font-size: 1.5rem;
+    opacity: 0.4;
+}
+.card-front .day-hint {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+/* Face Arrière : Le message secret */
+.card-back {
+    background-color: #3E3B35;
+    color: #ffffff;
+    transform: rotateY(180deg);
+    padding: 15px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
@@ -140,15 +176,15 @@
         <div class="cell cell-day">Ven</div>
         <div class="cell cell-day">Sam</div>
         <div class="cell cell-day">Dim</div>
-        <!-- LIGNE 2 : Semaine 1 (Octobre commence un Jeudi = 3 cases vides au début) -->
+              <!-- LIGNE 2 : Semaine 1 (Octobre commence un Jeudi = 3 cases vides au début) -->
         <div class="cell cell-theme">Semaine Déco</div>
         <div class="cell cell-empty"></div> <!-- Lundi -->
         <div class="cell cell-empty"></div> <!-- Mardi -->
         <div class="cell cell-empty"></div> <!-- Mercredi -->
-        <div class="cell cell-day-box" data-day="1" data-url="VOTRE_LIEN_AFFILIE_1"><img src="images/01.webp" alt=""></div>
-        <div class="cell cell-day-box" data-day="2" data-url="VOTRE_LIEN_AFFILIE_2"><img src="images/02.webp" alt=""></div>
-        <div class="cell cell-day-box" data-day="3" data-url="VOTRE_LIEN_AFFILIE_3"><img src="images/03.webp" alt=""></div>
-        <div class="cell cell-day-box" data-day="4" data-url="VOTRE_LIEN_AFFILIE_4"><img src="images/04.webp" alt=""></div>
+        <div class="cell cell-day-box" data-day="1" data-url="VOTRE_LIEN_1"><img src="images/01.webp" alt=""></div>
+        <div class="cell cell-day-box" data-day="2" data-url="VOTRE_LIEN_2"><img src="images/02.webp" alt=""></div>
+        <div class="cell cell-day-box" data-day="3" data-url="VOTRE_LIEN_3"><img src="images/03.webp" alt=""></div>
+        <div class="cell cell-day-box" data-day="4" data-url="VOTRE_LIEN_4"><img src="images/04.webp" alt=""></div>
 
         <!-- LIGNE 3 : Semaine 2 (Jours 5 à 11) -->
         <div class="cell cell-theme">Semaine Cuisine</div>
@@ -180,17 +216,47 @@
         <div class="cell cell-day-box" data-day="24" data-url="#"><img src="images/24.webp" alt=""></div>
         <div class="cell cell-day-box" data-day="25" data-url="#"><img src="images/25.webp" alt=""></div>
 
-        <!-- LIGNE 6 : Semaine 5 (Jours 26 à 31 + cases vides à la fin pour fermer la grille) -->
+        <!-- LIGNE 6 : Semaine 5 (Jours 26 et 27 actifs, puis 28 à 31 en mode CARTES INTERACTIVES) -->
         <div class="cell cell-theme">Bien-être</div>
         <div class="cell cell-day-box" data-day="26" data-url="#"><img src="images/26.webp" alt=""></div>
         <div class="cell cell-day-box" data-day="27" data-url="#"><img src="images/27.webp" alt=""></div>
-        <div class="cell cell-day-box" data-day="28" data-url="#"><img src="images/28.webp" alt=""></div>
-        <div class="cell cell-day-box" data-day="29" data-url="#"><img src="images/29.webp" alt=""></div>
-        <div class="cell cell-day-box" data-day="30" data-url="#"><img src="images/30.webp" alt=""></div>
-        <div class="cell cell-day-box" data-day="31" data-url="#"><img src="images/31.webp" alt=""></div>
+        
+        <!-- Jour 28 (Futur) -->
+        <div class="cell cell-future" data-day="28">
+            <div class="card-inner">
+                <div class="card-front"><span class="day-hint">28</span></div>
+                <div class="card-back"><p>Patience... Cette inspiration arrive bientôt ! ☕</p></div>
+            </div>
+        </div>
+
+        <!-- Jour 29 (Futur) -->
+        <div class="cell cell-future" data-day="29">
+            <div class="card-inner">
+                <div class="card-front"><span class="day-hint">29</span></div>
+                <div class="card-back"><p>Revenez demain pour une nouvelle surprise bien-être ! ✨</p></div>
+            </div>
+        </div>
+
+        <!-- Jour 30 (Futur) -->
+        <div class="cell cell-future" data-day="30">
+            <div class="card-inner">
+                <div class="card-front"><span class="day-hint">30</span></div>
+                <div class="card-back"><p>Une idée cocooning se cache ici. Encore un peu de patience ! 🍁</p></div>
+            </div>
+        </div>
+
+        <!-- Jour 31 (Futur) -->
+        <div class="cell cell-future" data-day="31">
+            <div class="card-inner">
+                <div class="card-front"><span class="day-hint">31</span></div>
+                <div class="card-back"><p>Bientôt disponible... Préparez votre plaid ! 🍫</p></div>
+            </div>
+        </div>
+
         <div class="cell cell-empty"></div> <!-- Case de fermeture pour finir la ligne -->
 
     </div> <!-- Fin de la grille calendar-container -->
+
     <!-- Fenêtre de notification éphémère (Toast) -->
     <div id="toast" class="toast-message">Patience... Cette inspiration arrive bientôt ! ✨</div>
 
@@ -199,31 +265,24 @@
         <p>&copy; 2026 Sept à la maison - Inspirations & Liens Affiliés. En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises.</p>
     </footer>
 
-    <!-- SCRIPT DE VERROUILLAGE AUTOMATIQUE -->
+     <!-- SCRIPT DE VERROUILLAGE AUTOMATIQUE -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Détecte le jour du mois actuel (Ex: 27 si nous sommes le 27)
             const today = new Date().getDate(); 
             
-            // Parcourt toutes les cases jours du calendrier
-            document.querySelectorAll(".cell-day-box").forEach(box => {
-                const boxDay = parseInt(box.getAttribute("data-day"));
-                const targetUrl = box.getAttribute("data-url");
-
-                if (boxDay <= today) {
-                    // JOUR PASSÉ OU EN COURS : On rend la case cliquable
-                    box.classList.add("cell-link");
-                    box.addEventListener("click", () => {
-                        window.open(targetUrl, '_blank');
+            document.querySelectorAll(".cell-future").forEach(card => {
+                const day = parseInt(card.getAttribute("data-day"));
+                
+                if (day <= today) {
+                    card.classList.remove("cell-future");
+                    card.classList.add("cell-link");
+                    card.innerHTML = `<img src="images/${day.toString().padStart(2, '0')}.webp" alt="">`;
+                    card.addEventListener("click", () => {
+                        window.open("VOTRE_LIEN_AFFILIE_ICI", '_blank');
                     });
                 } else {
-                    // JOUR FUTUR : On verrouille l'accès et masque l'image
-                    box.classList.add("cell-locked");
-                    box.addEventListener("click", () => {
-                        const toast = document.getElementById("toast");
-                        toast.style.display = "block";
-                        // Masque automatiquement le message après 3 secondes
-                        setTimeout(() => { toast.style.display = "none"; }, 3000);
+                    card.addEventListener("click", () => {
+                        card.classList.toggle("flipped");
                     });
                 }
             });
