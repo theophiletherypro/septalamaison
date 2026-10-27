@@ -2,11 +2,224 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <!-- Redirection automatique après 0 seconde vers le dossier d'octobre -->
-    <meta http-equiv="refresh" content="0; url=2026/octobre/">
-    <title>Sept à la Maison - Redirection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sept à la Maison - Inspirations Quotidiennes</title>
+    <style>
+        :root {
+            --bg-creme: #FDFBF7;
+            --text-color: #3E3B35;
+            --border-color: #EAE6DF;
+            --accent-color: #A39274;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-creme);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            background-color: #ffffff;
+        }
+        header h1 { margin: 0; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; }
+        header nav a { color: var(--text-color); text-decoration: none; margin-left: 20px; font-size: 0.9rem; }
+        header nav a:hover { text-decoration: underline; }
+
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            margin: 60px auto 40px auto;
+            padding: 0 20px;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .hero .tagline {
+            font-style: italic;
+            color: #7A756C;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        /* BOUTON DYNAMIQUE MENSUEL */
+        .main-btn {
+            display: inline-block;
+            background-color: var(--text-color);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 18px 36px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            letter-spacing: 1px;
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(62, 59, 53, 0.15);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .main-btn:hover {
+            transform: translateY(-3px);
+            background-color: var(--accent-color);
+        }
+
+        /* GRILLE DE PRESENTATION DE L'ECOSYSTEME */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 40px auto 60px auto;
+            padding: 0 20px;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 8px 25px rgba(163, 146, 116, 0.1);
+        }
+        .feature-card .icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
+        .feature-card h3 { margin: 0 0 10px 0; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px; }
+        .feature-card p { margin: 0; color: #7A756C; font-size: 0.95rem; line-height: 1.5; }
+
+        /* SECTON RECYCLAGE / ARCHIVES */
+        .archive-section {
+            background-color: #ffffff;
+            border-top: 1px solid var(--border-color);
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .archive-section h3 { text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px; margin-bottom: 30px; color: #7A756C; }
+        .months-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .month-card {
+            background: var(--bg-creme);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: inherit;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .month-card:hover { border-color: var(--accent-color); background-color: #FFFBF5; }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #7A756C;
+            background-color: #ffffff;
+            margin-top: auto;
+        }
+    </style>
 </head>
 <body>
-    <p>Redirection vers le calendrier en cours... Si rien ne se passe, <a href="2026/octobre/">cliquez ici</a>.</p>
+
+    <header>
+        <h1>Sept à la maison</h1>
+        <nav>
+            <a href="ressources.html">Ressources</a>
+            <a href="boutique.html">Boutique</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h2>Sept à la maison</h2>
+        <p class="tagline">Déco, jardin, cuisine, famille & bien-être au fil des saisons</p>
+        
+        <!-- Le JS mettra à jour l'URL vers "octobre/" (sans l'année) et changera le texte -->
+        <a href="#" id="dynamic-month-btn" class="main-btn">Découvrir le calendrier en cours</a>
+    </div>
+
+    <!-- Accès direct aux autres branches du site -->
+    <div class="features-grid">
+        <a href="ressources.html" class="feature-card">
+            <span class="icon">📚</span>
+            <h3>Outils & Bibliothèque</h3>
+            <p>Téléchargez gratuitement nos check-lists pratiques, calendriers de plantations et guides d'organisation.</p>
+        </a>
+
+        <a href="boutique.html" class="feature-card">
+            <span class="icon">🛍️</span>
+            <h3>La Boutique</h3>
+            <p>Retrouvez nos affiches exclusives et créations graphiques sur notre boutique Etsy et Print on Demand.</p>
+        </a>
+    </div>
+
+    <!-- Calendriers pour le recyclage annuel automatique -->
+    <div class="archive-section">
+        <h3>Explorer les mois de l'année</h3>
+        <div class="months-grid">
+            <a href="janvier/" class="month-card">Janvier</a>
+            <a href="fevrier/" class="month-card">Février</a>
+            <a href="mars/" class="month-card">Mars</a>
+            <a href="avril/" class="month-card">Avril</a>
+            <a href="mai/" class="month-card">Mai</a>
+            <a href="juin/" class="month-card">Juin</a>
+            <a href="juillet/" class="month-card">Juillet</a>
+            <a href="aout/" class="month-card">Août</a>
+            <a href="septembre/" class="month-card">Septembre</a>
+            <a href="octobre/" class="month-card">Octobre</a>
+            <a href="novembre/" class="month-card">Novembre</a>
+            <a href="decembre/" class="month-card">Décembre</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> Sept à la maison - Contenu d'idées et inspirations d'affiliation.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const moisFr = ["janvier", "fevrier", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "decembre"];
+            
+            // Calculer l'horloge et la date à l'Heure de Paris
+            const dateParis = new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Paris"}));
+            const currentYear = dateParis.getFullYear();
+            const currentMonthIndex = dateParis.getMonth();
+            const currentMonthName = moisFr[currentMonthIndex];
+
+            // 1. Mise à jour de l'année dans le footer de l'accueil
+            document.getElementById("current-year").textContent = currentYear;
+
+            // 2. Formatage du texte du bouton (Première lettre en Majuscule)
+            const monthTextFormatted = currentMonthName.charAt(0).toUpperCase() + currentMonthName.slice(1);
+
+            // 3. Mise à jour du lien d'arborescence nettoyée (Ex: /octobre/) et du texte
+            const mainButton = document.getElementById("dynamic-month-btn");
+            mainButton.href = `${currentMonthName}/`;
+            mainButton.innerHTML = `Inspirations de ${monthTextFormatted} ${currentYear} →`;
+        });
+    </script>
 </body>
 </html>
