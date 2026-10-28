@@ -343,27 +343,41 @@
                 <div class="card-front"><span class="day-hint">28</span></div>
                 <div class="card-back">Conseil 28</div>
             </div>
-        </div>
+            </div>
         <div class="cell cell-future" data-day="29" data-url="VOTRE_LIEN_AFFILIE_29">
             <div class="card-inner">
                 <div class="card-front"><span class="day-hint">29</span></div>
                 <div class="card-back">Conseil 29</div>
             </div>
         </div>
+        <div class="cell cell-future" data-day="30" data-url="VOTRE_LIEN_AFFILIE_30">
+            <div class="card-inner">
+                <div class="card-front"><span class="day-hint">30</span></div>
+                <div class="card-back">Conseil 30</div>
+            </div>
+        </div>
+        <div class="cell cell-future" data-day="31" data-url="VOTRE_LIEN_AFFILIE_31">
+            <div class="card-inner">
+                <div class="card-front"><span class="day-hint">31</span></div>
+                <div class="card-back">Conseil 31</div>
+            </div>
+        </div>
+        <div class="cell cell-empty"></div> <!-- Case vide pour équilibrer la ligne à 8 éléments -->
+
+    </div> <!-- Fermeture définitive de la grille .calendar-container -->
 
     <footer>
         <p>© 2026 Sept à la Maison - Tous droits réservés.</p>
     </footer>
-<script>
+
+    <script>
         document.querySelectorAll('.cell-future').forEach(card => {
             card.addEventListener('click', function(e) {
-                // Si la carte n'est pas encore retournée, on la retourne
                 if (!this.classList.contains('flipped')) {
                     this.classList.add('flipped');
                 } else {
-                    // Si elle est déjà retournée, on ouvre le lien affilié
                     const url = this.getAttribute('data-url');
-                    if (url && url !== '#' && !url.startsWith('LIEN_')) {
+                    if (url && url !== '#' && !url.startsWith('VOTRE_LIEN_') && !url.startsWith('LIEN_')) {
                         window.open(url, '_blank');
                     }
                 }
@@ -372,3 +386,4 @@
     </script>
 </body>
 </html>
+
