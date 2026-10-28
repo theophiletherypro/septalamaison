@@ -3,93 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sept à la Maison - Octobre</title>
+    <title>Sept à la Maison - Calendrier d'Octobre 2026</title>
     <style>
         :root {
             --bg-creme: #FDFBF7;
             --text-color: #3E3B35;
             --border-color: #EAE6DF;
             --accent-color: #A39274;
+            
+            /* Nuances de Rouges - Lie-de-vin & Pastel */
+            --swello-semaine: #4A1521;   /* Rouge lie-de-vin profond et intense */
+            --swello-weekend: #D69FA3;   /* Rouge poudré / vieux rose très pastel */
+            --swello-case-passé: #FFFFFF;/* Fond des jours disponibles pur */
+            --swello-case-futur: #F7F3EB;/* Fond des jours verrouillés */
         }
 
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
             background-color: var(--bg-creme);
             color: var(--text-color);
             margin: 0;
-            padding: 20px;
+            padding: 30px 20px;
         }
 
         header {
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            border-bottom: 1px solid var(--border-color); 
-            padding: 15px; 
+            border-bottom: 2px solid var(--border-color); 
+            padding: 15px 25px; 
             margin-bottom: 30px; 
             background-color: #ffffff; 
-            border-radius: 8px;
+            border-radius: 12px;
         }
-        header h1 { margin: 0; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; }
-        header nav { display: flex; gap: 20px; }
-        header nav a { color: var(--text-color); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+        header h1 { margin: 0; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--swello-semaine); }
+        header nav { display: flex; gap: 25px; }
+        header nav a { color: var(--text-color); text-decoration: none; font-size: 0.95rem; font-weight: 600; }
+        header nav a:hover { color: var(--swello-semaine); }
 
-        /* GRILLE CALENDRIER (8 colonnes : 1 colonne Thème + 7 colonnes Jours de la semaine) */
+        /* GRILLE CALENDRIER */
         .calendar-container {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
-            gap: 12px;
+            gap: 14px;
             max-width: 1400px;
-            margin: 0 auto;
+            margin: 0 auto 50px auto;
         }
 
-        /* Style de base de toutes les cases */
         .cell {
             background-color: #ffffff;
             border: 1px solid var(--border-color);
             border-radius: 8px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            aspect-ratio: 1 / 1;
             position: relative;
             box-sizing: border-box;
             overflow: hidden;
+            aspect-ratio: 1.15 / 1;
         }
 
-        /* Styles des entêtes */
-        .cell-month { background-color: #3E3B35; color: #ffffff; font-weight: bold; font-size: 0.85rem; text-align: center; text-transform: uppercase; letter-spacing: 1px; }
-        .cell-day { background-color: #F3EFE9; font-weight: 600; font-size: 0.85rem; text-align: center; }
-        .cell-theme { background-color: #F9F6F0; font-style: italic; font-size: 0.8rem; text-align: center; padding: 5px; font-weight: bold; }
+        /* Entête Mois */
+        .cell-month { 
+            background-color: var(--swello-semaine); 
+            color: #ffffff; 
+            font-weight: 800; 
+            font-size: 1.1rem; 
+            text-align: center; 
+            justify-content: center;
+            letter-spacing: 2px;
+        }
 
-        /* Cases vides pour le début et la fin de mois */
+        /* Entêtes Jours */
+        .cell-day { 
+            font-weight: 700; 
+            font-size: 0.85rem; 
+            text-align: center; 
+            justify-content: center;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+        .cell-day.weekday { background-color: var(--swello-semaine); }
+        .cell-day.weekend { background-color: var(--swello-weekend); }
+
+        /* Colonne Thème */
+        .cell-theme { 
+            background-color: #F0EAE1; 
+            color: var(--swello-semaine);
+            font-style: italic; 
+            font-size: 0.85rem; 
+            text-align: center; 
+            justify-content: center;
+            font-weight: 700; 
+            border-left: 4px solid var(--accent-color);
+        }
+
         .cell-empty {
-            background-color: rgba(234, 230, 223, 0.2);
+            background-color: rgba(226, 221, 213, 0.25);
             border: 1px dashed var(--border-color);
         }
 
-        /* --- EFFET 3D CARTE QUI SE RETOURNE --- */
+        /* Badge d'action épuré */
+        .click-badge {
+            position: absolute; 
+            bottom: 8px; 
+            right: 8px; 
+            z-index: 10; 
+            font-size: 0.8rem; 
+            background: var(--swello-semaine); 
+            color: #ffffff; 
+            width: 24px; 
+            height: 24px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border-radius: 50%; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+
+        /* --- LOGIQUE 3D DES CARTES FUTURES --- */
         .cell-future {
             perspective: 1000px;
             background-color: transparent !important;
             border: none !important;
             cursor: pointer;
         }
-
         .card-inner {
             position: relative;
             width: 100%;
             height: 100%;
-            text-align: center;
             transition: transform 0.6s;
             transform-style: preserve-3d;
         }
-
         .cell-future.flipped .card-inner {
             transform: rotateY(180deg);
         }
-
         .card-front, .card-back {
             position: absolute;
             width: 100%;
@@ -98,41 +145,68 @@
             backface-visibility: hidden;
             border-radius: 8px;
             border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             box-sizing: border-box;
         }
-
         .card-front {
-            background-color: #FBF9F4;
-            color: var(--text-color);
+            background-color: var(--swello-case-futur);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .card-front::after {
             content: "✨";
-            font-size: 1.5rem;
-            opacity: 0.4;
+            font-size: 1.4rem;
+            opacity: 0.3;
         }
-        .card-front .day-hint {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            color: var(--accent-color);
-        }
-
         .card-back {
-            background-color: #3E3B35;
+            background-color: var(--swello-semaine);
             color: #ffffff;
             transform: rotateY(180deg);
-            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 0.8rem;
-            line-height: 1.4;
+            font-weight: 600;
+            padding: 10px;
+            text-align: center;
         }
 
-        footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); font-size: 0.85rem; color: #7A756C; }
+        /* ZONE SÉMANTIQUE SEO */
+        .seo-section {
+            max-width: 1200px;
+            margin: 60px auto 20px auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.01);
+        }
+        .seo-section h2 {
+            color: var(--swello-semaine);
+            font-size: 1.6rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--swello-weekend);
+            padding-bottom: 10px;
+        }
+        .seo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .seo-article h3 {
+            color: var(--text-color);
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+        }
+        .seo-article p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #615E58;
+            margin: 0;
+        }
+
+        footer { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--border-color); font-size: 0.85rem; color: #7A756C; }
     </style>
 </head>
 <body>
@@ -148,67 +222,85 @@
 
     <div class="calendar-container">
         
-        <!-- LIGNE 1 : Les Entêtes avec noms complets (8 éléments) -->
+        <!-- LIGNE 1 : Les Entêtes -->
         <div class="cell cell-month">OCTOBRE</div>
-        <div class="cell cell-day">Lundi</div>
-        <div class="cell cell-day">Mardi</div>
-        <div class="cell cell-day">Mercredi</div>
-        <div class="cell cell-day">Jeudi</div>
-        <div class="cell cell-day">Vendredi</div>
-        <div class="cell cell-day">Samedi</div>
-        <div class="cell cell-day">Dimanche</div>
+        <div class="cell cell-day weekday">Lundi</div>
+        <div class="cell cell-day weekday">Mardi</div>
+        <div class="cell cell-day weekday">Mercredi</div>
+        <div class="cell cell-day weekday">Jeudi</div>
+        <div class="cell cell-day weekday">Vendredi</div>
+        <div class="cell cell-day weekend">Samedi</div>
+        <div class="cell cell-day weekend">Dimanche</div>
                
-        <!-- LIGNE 2 : Semaine Déco (1 Thème + 3 vides + 4 jours = 8 éléments) -->
+        <!-- LIGNE 2 : Semaine Déco -->
         <div class="cell cell-theme">Semaine Déco</div>
         <div class="cell cell-empty"></div>
         <div class="cell cell-empty"></div>
         <div class="cell cell-empty"></div>
-        <div class="cell cell-future" data-day="1" data-url="VOTRE_LIEN_AFFILIE_1" data-image="images/produit1.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">1</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="2" data-url="VOTRE_LIEN_AFFILIE_2" data-image="images/produit2.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">2</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="3" data-url="VOTRE_LIEN_AFFILIE_3" data-image="images/produit3.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">3</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="4" data-url="VOTRE_LIEN_AFFILIE_4" data-image="images/produit4.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">4</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="1" data-url="VOTRE_LIEN_1" data-image="images/produit1.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="2" data-url="VOTRE_LIEN_2" data-image="images/produit2.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="3" data-url="VOTRE_LIEN_3" data-image="images/produit3.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="4" data-url="VOTRE_LIEN_4" data-image="images/produit4.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
 
-        <!-- LIGNE 3 : Semaine Cuisine (1 Thème + 7 jours = 8 éléments) -->
+             <!-- LIGNE 3 : Semaine Cuisine (7 jours) -->
         <div class="cell cell-theme">Semaine Cuisine</div>
-        <div class="cell cell-future" data-day="5" data-url="VOTRE_LIEN_AFFILIE_5" data-image="images/produit5.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">5</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="6" data-url="VOTRE_LIEN_AFFILIE_6" data-image="images/produit6.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">6</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="7" data-url="VOTRE_LIEN_AFFILIE_7" data-image="images/produit7.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">7</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="8" data-url="VOTRE_LIEN_AFFILIE_8" data-image="images/produit8.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">8</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="9" data-url="VOTRE_LIEN_AFFILIE_9" data-image="images/produit9.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">9</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="10" data-url="VOTRE_LIEN_AFFILIE_10" data-image="images/produit10.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">10</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="11" data-url="VOTRE_LIEN_AFFILIE_11" data-image="images/produit11.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">11</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="5" data-url="VOTRE_LIEN_5" data-image="images/produit5.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="6" data-url="VOTRE_LIEN_6" data-image="images/produit6.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="7" data-url="VOTRE_LIEN_7" data-image="images/produit7.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="8" data-url="VOTRE_LIEN_8" data-image="images/produit8.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="9" data-url="VOTRE_LIEN_9" data-image="images/produit9.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="10" data-url="VOTRE_LIEN_10" data-image="images/produit10.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="11" data-url="VOTRE_LIEN_11" data-image="images/produit11.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
 
         <!-- LIGNE 4 : Semaine Organisation -->
         <div class="cell cell-theme">Semaine Org.</div>
-        <div class="cell cell-future" data-day="12" data-url="VOTRE_LIEN_AFFILIE_12" data-image="images/produit12.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">12</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="13" data-url="VOTRE_LIEN_AFFILIE_13" data-image="images/produit13.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">13</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="14" data-url="VOTRE_LIEN_AFFILIE_14" data-image="images/produit14.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">14</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="15" data-url="VOTRE_LIEN_AFFILIE_15" data-image="images/produit15.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">15</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="16" data-url="VOTRE_LIEN_AFFILIE_16" data-image="images/produit16.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">16</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="17" data-url="VOTRE_LIEN_AFFILIE_17" data-image="images/produit17.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">17</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="18" data-url="VOTRE_LIEN_AFFILIE_18" data-image="images/produit18.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">18</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="12" data-url="VOTRE_LIEN_12" data-image="images/produit12.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="13" data-url="VOTRE_LIEN_13" data-image="images/produit13.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="14" data-url="VOTRE_LIEN_14" data-image="images/produit14.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="15" data-url="VOTRE_LIEN_15" data-image="images/produit15.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="16" data-url="VOTRE_LIEN_16" data-image="images/produit16.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="17" data-url="VOTRE_LIEN_17" data-image="images/produit17.webp"><div class="card-inner"><div class="card-front"><span class="day-hint"></span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="18" data-url="VOTRE_LIEN_18" data-image="images/produit18.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
 
         <!-- LIGNE 5 : Semaine Famille -->
         <div class="cell cell-theme">Semaine Famille</div>
-        <div class="cell cell-future" data-day="19" data-url="VOTRE_LIEN_AFFILIE_19" data-image="images/produit19.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">19</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="20" data-url="VOTRE_LIEN_AFFILIE_20" data-image="images/produit20.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">20</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="21" data-url="VOTRE_LIEN_AFFILIE_21" data-image="images/produit21.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">21</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="22" data-url="VOTRE_LIEN_AFFILIE_22" data-image="images/produit22.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">22</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="23" data-url="VOTRE_LIEN_AFFILIE_23" data-image="images/produit23.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">23</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="24" data-url="VOTRE_LIEN_AFFILIE_24" data-image="images/produit24.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">24</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="25" data-url="VOTRE_LIEN_AFFILIE_25" data-image="images/produit25.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">25</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="19" data-url="VOTRE_LIEN_19" data-image="images/produit19.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="20" data-url="VOTRE_LIEN_20" data-image="images/produit20.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="21" data-url="VOTRE_LIEN_21" data-image="images/produit21.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="22" data-url="VOTRE_LIEN_22" data-image="images/produit22.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="23" data-url="VOTRE_LIEN_23" data-image="images/produit23.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="24" data-url="VOTRE_LIEN_24" data-image="images/produit24.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="25" data-url="VOTRE_LIEN_25" data-image="images/produit25.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
 
         <!-- LIGNE 6 : Semaine Bien-être -->
         <div class="cell cell-theme">Semaine Bien-être</div>
-        <div class="cell cell-future" data-day="26" data-url="VOTRE_LIEN_AFFILIE_26" data-image="images/produit26.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">26</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="27" data-url="VOTRE_LIEN_AFFILIE_27" data-image="images/produit27.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">27</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="28" data-url="VOTRE_LIEN_AFFILIE_28" data-image="images/produit28.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">28</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="29" data-url="VOTRE_LIEN_AFFILIE_29" data-image="images/produit29.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">29</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="30" data-url="VOTRE_LIEN_AFFILIE_30" data-image="images/produit30.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">30</span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="31" data-url="VOTRE_LIEN_AFFILIE_31" data-image="images/produit31.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">31</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="26" data-url="VOTRE_LIEN_26" data-image="images/produit26.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="27" data-url="VOTRE_LIEN_27" data-image="images/produit27.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="28" data-url="VOTRE_LIEN_28" data-image="images/produit28.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="29" data-url="VOTRE_LIEN_29" data-image="images/produit29.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="30" data-url="VOTRE_LIEN_30" data-image="images/produit30.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="31" data-url="VOTRE_LIEN_31" data-image="images/produit31.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
         <div class="cell cell-empty"></div>
-        
-    </div> <!-- Fermeture de la grille calendar-container -->
+    </div>
+
+    <!-- ZONE SÉMANTIQUE SEO POUR GOOGLE -->
+    <section class="seo-section">
+        <h2>Inspirations et Organisation de la Maison pour l'Automne</h2>
+        <div class="seo-grid">
+            <article class="seo-article">
+                <h3>Idées Déco et Ambiance Cocooning</h3>
+                <p>Découvrez nos sélections d'accessoires et d'aménagements intérieurs pour transformer votre foyer en un véritable havre de paix. Du salon chaleureux à la chambre d'amis accueillante, trouvez l'inspiration pour harmoniser vos espaces de vie avec les tendances de saison.</p>
+            </article>
+            <article class="seo-article">
+                <h3>Cuisine Familiale et Recettes de Saison</h3>
+                <p>Explorez des idées culinaires équilibrées et gourmandes conçues pour toute la famille. Notre calendrier met à l'honneur des ustensiles pratiques, des astuces de batch cooking et des produits phares pour cuisiner des plats réconfortants au quotidien.</p>
+            </article>
+            <article class="seo-article">
+                <h3>Organisation Spacieuse et Rangement</h3>
+                <p>Simplifiez votre gestion domestique grâce à nos routines éprouvées. Astuces de rangement, listes de courses partagées et plannings de ménage collaboratifs vous aideront à optimiser votre temps pour vous consacrer pleinement à ce qui compte vraiment.</p>
+            </article>
+        </div>
+    </section>
 
     <footer>
         <p>© 2026 Sept à la Maison - Tous droits réservés.</p>
@@ -224,25 +316,25 @@
             const url = card.getAttribute('data-url');
             const imageSrc = card.getAttribute('data-image');
 
-            // 1. Jours passés et jour actuel : Image et lien direct
+            // 1. JOURS PASSÉS ET JOUR ACTUEL
             if (jourCarte <= jourActuel || moisActuel > 9) {
-                card.style.perspective = "none";
+                card.className = "cell"; 
                 card.style.cursor = "pointer";
+                card.style.backgroundColor = "var(--swello-case-passé)";
                 card.style.transition = "transform 0.2s, box-shadow 0.2s";
                 
                 card.addEventListener('mouseenter', () => {
-                    card.style.transform = "scale(1.03)";
-                    card.style.boxShadow = "0 6px 14px rgba(163, 146, 116, 0.2)";
+                    card.style.transform = "translateY(-3px)";
+                    card.style.boxShadow = "0 6px 16px rgba(45, 17, 36, 0.12)";
                 });
                 card.addEventListener('mouseleave', () => {
-                    card.style.transform = "scale(1)";
+                    card.style.transform = "translateY(0)";
                     card.style.boxShadow = "none";
                 });
 
                 card.innerHTML = `
-                    <span class="day-hint" style="position:absolute; top:8px; left:8px; z-index:10; font-size:0.85rem; font-weight:bold; color:var(--accent-color); background:rgba(255,255,255,0.85); padding:2px 6px; border-radius:4px;">${jourCarte}</span>
-                    <img src="${imageSrc ? imageSrc : 'https://placeholder.com'}" alt="Jour ${jourCarte}" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
-                    <span class="click-badge" style="position:absolute; bottom:6px; right:6px; z-index:10; font-size:0.85rem; background:#3E3B35; color:#ffffff; width:22px; height:22px; display:flex; align-items:center; justify-content:center; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.25);">🔗</span>
+                    <img src="${imageSrc ? imageSrc : 'https://placeholder.com'}" alt="Suggestion du jour" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
+                    <span class="click-badge">🔗</span>
                 `;
 
                 card.addEventListener('click', function() {
@@ -251,12 +343,11 @@
                     }
                 });
             } 
-            // 2. Jours futurs : Verrouillage et retournement 3D avec message secret
+            // 2. JOURS FUTURS
             else {
                 const cardBack = card.querySelector('.card-back');
                 if (cardBack) {
-                    cardBack.innerHTML = "🔒 Ça arrive bientôt... Revenez demain ! ✨";
-                    cardBack.style.backgroundColor = "#5A5449";
+                    cardBack.innerHTML = "🔒 Bientôt disponible... Revenez demain ! ✨";
                 }
 
                 card.addEventListener('click', function() {
@@ -267,5 +358,3 @@
     </script>
 </body>
 </html>
-
-        
