@@ -14,15 +14,14 @@
     <meta property="og:description" content="Inspirations quotidiennes et astuces d'organisation pour la maison.">
     <meta property="og:type" content="website">
 
-    <style>
-        /* Le code CSS (Pièce n°3) sera placé ici pour l'intégration des couleurs Lie-de-vin et Pastel */
-    </style>
+    <!-- LIAISON VERS LE STYLE CSS (Ce qui manquait pour appliquer le design) -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <!-- Entête du site -->
     <header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; margin-bottom: 20px; border-bottom: 1px solid #EAE6DF;">
-        <h1 style="margin: 0; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px;">Sept à la maison</h1>
+        <h1 style="margin: 0; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; color: #4A1521;">Sept à la maison</h1>
         <nav style="display: flex; gap: 20px;">
             <a href="./../" style="color: #3E3B35; text-decoration: none; font-weight: 500;">Accueil</a>
             <a href="../ressources.html" style="color: #3E3B35; text-decoration: none; font-weight: 500;">Ressources</a>
@@ -30,19 +29,19 @@
         </nav>
     </header>
 
-    <!-- Zone du Titre Principal (Comme sur Swello : en gros, au-dessus à gauche) -->
+    <!-- Zone du Titre Principal -->
     <div style="max-width: 1400px; margin: 30px auto 15px auto; padding: 0 10px;">
         <h2 style="font-size: 2.2rem; font-weight: 800; color: #4A1521; margin: 0; font-family: sans-serif;">Octobre 2026</h2>
     </div>
 
     <!-- Disposition Globale : Grille à gauche + Barre latérale à droite -->
-    <main class="main-layout" style="display: flex; flex-wrap: wrap; gap: 25px; max-width: 1400px; margin: 0 auto; padding: 0 10px;">
+    <main class="main-layout">
         
-        <!-- Bloc du Calendrier (Prend plus de place) -->
-        <section style="flex: 3; min-width: 320px;">
+        <!-- Bloc du Calendrier -->
+        <section class="calendar-wrapper">
             <div class="calendar-container" id="calendar-grid">
                 
-                <!-- LIGNE DES EN-TÊTES DE JOURS (7 colonnes parfaites, sans la case mois) -->
+                <!-- LIGNE DES EN-TÊTES DE JOURS (Gérées par le CSS) -->
                 <div class="cell-day">Lundi</div>
                 <div class="cell-day">Mardi</div>
                 <div class="cell-day">Mercredi</div>
@@ -55,19 +54,19 @@
             </div>
         </section>
 
-        <!-- Barre Latérale "Notes & Conseils" (Style Swello à droite) -->
-        <aside class="sidebar-notes" style="flex: 1; min-width: 280px;">
-            <div style="background: #ffffff; border: 1px solid #EAE6DF; border-radius: 12px; padding: 25px; position: sticky; top: 20px;">
+        <!-- Barre Latérale "Notes & Conseils" -->
+        <aside class="sidebar-notes">
+            <div style="background: #ffffff; border: 1px solid #EAE6DF; border-radius: 12px; padding: 25px;">
                 <h3 style="color: #4A1521; font-size: 1.2rem; text-transform: uppercase; margin-top: 0; margin-bottom: 5px;">Le Conseil du Mois</h3>
                 <div style="height: 2px; width: 40px; background: #D69FA3; margin-bottom: 15px;"></div>
                 <p style="font-size: 0.9rem; line-height: 1.6; color: #6E6A62; margin-bottom: 10px;"><strong>Constituez votre bibliothèque d'idées :</strong></p>
-                <p style="font-size: 0.85rem; line-height: 1.6; color: #6E6A62;">Notez vos inspirations au fil de l'eau. Quand vous manquerez d'idées neuves pour aménager ou organiser votre intérieur, vous disposerez d'une mine d'or prête à relancer votre créativité ! 🍁</p>
+                <p style="font-size: 0.85rem; line-height: 1.6; color: #6E6A62;">Notez vos inspirations au fil de l'eau. Quand vous manquerez d'idées neuves pour amuser ou organiser votre intérieur, vous disposerez d'une mine d'or prête à relancer votre créativité ! 🍁</p>
             </div>
         </aside>
 
     </main>
 
-    <!-- Section sémantique cachée pour les robots Google (SEO de secours si JS désactivé) -->
+    <!-- Zone sémantique cachée pour les robots Google -->
     <noscript>
         <section style="max-width: 1400px; margin: 40px auto; padding: 20px;">
             <h2>Organisation de la Maison et Inspirations d'Automne</h2>
@@ -75,5 +74,7 @@
         </section>
     </noscript>
 
+    <!-- LIAISON VERS LE CODE JAVASCRIPT (En bas de page) -->
+    <script src="js/app.js"></script>
 </body>
 </html>
