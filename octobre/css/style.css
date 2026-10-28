@@ -1,0 +1,20 @@
+:root {
+    --bg-creme: #FDFBF7;
+    --text-color: #3E3B35;
+    --border-color: #EAE6DF;
+    --accent-color: #A39274;
+    
+    /* Nuances de Rouges inspirées de Swello */
+    --swello-semaine: #4A1521;   /* Rouge lie-de-vin profond et intense */
+    --swello-weekend: #D69FA3;   /* Rouge poudré / vieux rose très pastel */
+    --swello-case-passé: #FFFFFF;/* Fond des jours disponibles */
+    --swello-case-futur: #F7F3EB;/* Fond des jours verrouillés */
+}
+
+body {
+    background-color: var(--bg-creme);
+    color: var(--text-color);
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    padding: 0;
+}
