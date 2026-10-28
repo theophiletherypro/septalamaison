@@ -344,46 +344,76 @@
                 <div class="card-back">Conseil 28</div>
             </div>
             </div>
-        <div class="cell cell-future" data-day="29" data-url="VOTRE_LIEN_AFFILIE_29">
+               <div class="cell cell-future" data-day="29" data-url="VOTRE_LIEN_AFFILIE_29" data-image="CHEMIN_IMAGE_29.webp">
             <div class="card-inner">
                 <div class="card-front"><span class="day-hint">29</span></div>
                 <div class="card-back">Conseil 29</div>
             </div>
         </div>
-        <div class="cell cell-future" data-day="30" data-url="VOTRE_LIEN_AFFILIE_30">
+        <div class="cell cell-future" data-day="30" data-url="VOTRE_LIEN_AFFILIE_30" data-image="CHEMIN_IMAGE_30.webp">
             <div class="card-inner">
                 <div class="card-front"><span class="day-hint">30</span></div>
                 <div class="card-back">Conseil 30</div>
             </div>
         </div>
-        <div class="cell cell-future" data-day="31" data-url="VOTRE_LIEN_AFFILIE_31">
+        <div class="cell cell-future" data-day="31" data-url="VOTRE_LIEN_AFFILIE_31" data-image="CHEMIN_IMAGE_31.webp">
             <div class="card-inner">
                 <div class="card-front"><span class="day-hint">31</span></div>
                 <div class="card-back">Conseil 31</div>
             </div>
         </div>
-        <div class="cell cell-empty"></div> <!-- Case vide pour équilibrer la ligne à 8 éléments -->
-
-    </div> <!-- Fermeture définitive de la grille .calendar-container -->
+        <div class="cell cell-empty"></div>
+    </div>
 
     <footer>
         <p>© 2026 Sept à la Maison - Tous droits réservés.</p>
     </footer>
 
     <script>
+        // Récupération du jour d'aujourd'hui
+        const aujourdHui = new Date();
+        const jourActuel = aujourdHui.getDate();
+        const moisActuel = aujourdHui.getMonth(); // 9 = Octobre
+
         document.querySelectorAll('.cell-future').forEach(card => {
-            card.addEventListener('click', function(e) {
-                if (!this.classList.contains('flipped')) {
-                    this.classList.add('flipped');
-                } else {
-                    const url = this.getAttribute('data-url');
+            const jourCarte = parseInt(card.getAttribute('data-day'), 10);
+            const url = card.getAttribute('data-url');
+            const imageSrc = card.getAttribute('data-image');
+
+            // CAS 1 : LE JOUR EST PASSÉ OU PRÉSENT
+            if (jourCarte <= jourActuel || moisActuel > 9) {
+                // On transforme la case en lien cliquable direct avec son image
+                card.style.perspective = "none";
+                card.style.cursor = "pointer";
+                
+                // On remplace le contenu 3D interne par l'image directe
+                card.innerHTML = `
+                    <span class="day-hint" style="position:absolute; top:8px; left:8px; z-index:10; font-size:0.85rem; font-weight:bold; color:var(--accent-color);">${jourCarte}</span>
+                    <img src="${imageSrc ? imageSrc : 'https://placeholder.com'}" alt="Jour ${jourCarte}" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
+                `;
+
+                // Clic sur la case -> Ouvre directement le lien affilié
+                card.addEventListener('click', function() {
                     if (url && url !== '#' && !url.startsWith('VOTRE_LIEN_') && !url.startsWith('LIEN_')) {
                         window.open(url, '_blank');
                     }
+                });
+            } 
+            // CAS 2 : LE JOUR EST DANS LE FUTUR
+            else {
+                // On force le texte d'attente à l'arrière de la carte 3D
+                const cardBack = card.querySelector('.card-back');
+                if (cardBack) {
+                    cardBack.innerHTML = "🔒 Ça arrive bientôt... Revenez demain ! ✨";
+                    cardBack.style.backgroundColor = "#5A5449";
                 }
-            });
+
+                // Clic sur la case future -> Se retourne pour afficher le texte d'attente uniquement
+                card.addEventListener('click', function() {
+                    this.classList.toggle('flipped');
+                });
+            }
         });
     </script>
 </body>
 </html>
-
