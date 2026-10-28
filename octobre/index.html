@@ -216,6 +216,21 @@
     <footer>
         <p>© 2026 Sept à la Maison - Tous droits réservés.</p>
     </footer>
-
+<script>
+        document.querySelectorAll('.cell-future').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Si la carte n'est pas encore retournée, on la retourne
+                if (!this.classList.contains('flipped')) {
+                    this.classList.add('flipped');
+                } else {
+                    // Si elle est déjà retournée, on ouvre le lien affilié
+                    const url = this.getAttribute('data-url');
+                    if (url && url !== '#' && !url.startsWith('LIEN_')) {
+                        window.open(url, '_blank');
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
