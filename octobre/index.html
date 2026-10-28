@@ -34,16 +34,16 @@
         header nav { display: flex; gap: 20px; }
         header nav a { color: var(--text-color); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
 
-        /* GRILLE CALENDRIER (8 colonnes parfaites) */
+        /* GRILLE CALENDRIER (8 colonnes : 1 colonne Thème + 7 colonnes Jours de la semaine) */
         .calendar-container {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             gap: 12px;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* Style de base des cases */
+        /* Style de base de toutes les cases */
         .cell {
             background-color: #ffffff;
             border: 1px solid var(--border-color);
@@ -55,20 +55,21 @@
             aspect-ratio: 1 / 1;
             position: relative;
             box-sizing: border-box;
+            overflow: hidden;
         }
 
-        /* Entêtes */
-        .cell-month { background-color: #3E3B35; color: #ffffff; font-weight: bold; font-size: 0.9rem; text-align: center; }
-        .cell-day { background-color: #F3EFE9; font-weight: 600; font-size: 0.9rem; }
-        .cell-theme { background-color: #F9F6F0; font-style: italic; font-size: 0.85rem; text-align: center; padding: 5px; font-weight: bold; }
+        /* Styles des entêtes */
+        .cell-month { background-color: #3E3B35; color: #ffffff; font-weight: bold; font-size: 0.85rem; text-align: center; text-transform: uppercase; letter-spacing: 1px; }
+        .cell-day { background-color: #F3EFE9; font-weight: 600; font-size: 0.85rem; text-align: center; }
+        .cell-theme { background-color: #F9F6F0; font-style: italic; font-size: 0.8rem; text-align: center; padding: 5px; font-weight: bold; }
 
-        /* Cases vides */
+        /* Cases vides pour le début et la fin de mois */
         .cell-empty {
             background-color: rgba(234, 230, 223, 0.2);
             border: 1px dashed var(--border-color);
         }
 
-        /* --- EFFET 3D CARTE --- */
+        /* --- EFFET 3D CARTE QUI SE RETOURNE --- */
         .cell-future {
             perspective: 1000px;
             background-color: transparent !important;
@@ -85,8 +86,7 @@
             transform-style: preserve-3d;
         }
 
-        /* Rotation au survol ou via classe JS */
-        .cell-future:hover .card-inner, .cell-future.flipped .card-inner {
+        .cell-future.flipped .card-inner {
             transform: rotateY(180deg);
         }
 
@@ -137,7 +137,7 @@
 </head>
 <body>
 
-       <header>
+    <header>
         <h1>Sept à la maison</h1>
         <nav>
             <a href="./../">Accueil</a>
@@ -148,229 +148,73 @@
 
     <div class="calendar-container">
         
-        <!-- LIGNE 1 : Les Entêtes (8 éléments au total) -->
+        <!-- LIGNE 1 : Les Entêtes avec noms complets (8 éléments) -->
         <div class="cell cell-month">OCTOBRE</div>
-        <div class="cell cell-day">Lun</div>
-        <div class="cell cell-day">Mar</div>
-        <div class="cell cell-day">Mer</div>
-        <div class="cell cell-day">Jeu</div>
-        <div class="cell cell-day">Ven</div>
-        <div class="cell cell-day">Sam</div>
-        <div class="cell cell-day">Dim</div>
+        <div class="cell cell-day">Lundi</div>
+        <div class="cell cell-day">Mardi</div>
+        <div class="cell cell-day">Mercredi</div>
+        <div class="cell cell-day">Jeudi</div>
+        <div class="cell cell-day">Vendredi</div>
+        <div class="cell cell-day">Samedi</div>
+        <div class="cell cell-day">Dimanche</div>
                
         <!-- LIGNE 2 : Semaine Déco (1 Thème + 3 vides + 4 jours = 8 éléments) -->
         <div class="cell cell-theme">Semaine Déco</div>
         <div class="cell cell-empty"></div>
         <div class="cell cell-empty"></div>
         <div class="cell cell-empty"></div>
-        
-        <div class="cell cell-future" data-day="1" data-url="VOTRE_LIEN_AFFILIE_1">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">1</span></div>
-                <div class="card-back">Message Secret 1</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="2" data-url="VOTRE_LIEN_AFFILIE_2">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">2</span></div>
-                <div class="card-back">Message Secret 2</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="3" data-url="VOTRE_LIEN_AFFILIE_3">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">3</span></div>
-                <div class="card-back">Message Secret 3</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="4" data-url="VOTRE_LIEN_AFFILIE_4">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">4</span></div>
-                <div class="card-back">Message Secret 4</div>
-            </div>
-        </div>
+        <div class="cell cell-future" data-day="1" data-url="VOTRE_LIEN_AFFILIE_1" data-image="images/produit1.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">1</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="2" data-url="VOTRE_LIEN_AFFILIE_2" data-image="images/produit2.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">2</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="3" data-url="VOTRE_LIEN_AFFILIE_3" data-image="images/produit3.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">3</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="4" data-url="VOTRE_LIEN_AFFILIE_4" data-image="images/produit4.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">4</span></div><div class="card-back"></div></div></div>
 
         <!-- LIGNE 3 : Semaine Cuisine (1 Thème + 7 jours = 8 éléments) -->
         <div class="cell cell-theme">Semaine Cuisine</div>
-        <div class="cell cell-future" data-day="5" data-url="VOTRE_LIEN_AFFILIE_5">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">5</span></div>
-                <div class="card-back">Recette Secrète 5</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="6" data-url="VOTRE_LIEN_AFFILIE_6">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">6</span></div>
-                <div class="card-back">Recette Secrète 6</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="7" data-url="VOTRE_LIEN_AFFILIE_7">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">7</span></div>
-                <div class="card-back">Recette Secrète 7</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="8" data-url="VOTRE_LIEN_AFFILIE_8">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">8</span></div>
-                <div class="card-back">Recette Secrète 8</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="9" data-url="VOTRE_LIEN_AFFILIE_9">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">9</span></div>
-                <div class="card-back">Recette Secrète 9</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="10" data-url="VOTRE_LIEN_AFFILIE_10">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">10</span></div>
-                <div class="card-back">Recette Secrète 10</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="11" data-url="VOTRE_LIEN_AFFILIE_11">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">11</span></div>
-                <div class="card-back">Recette Secrète 11</div>
-            </div>
-        </div>
+        <div class="cell cell-future" data-day="5" data-url="VOTRE_LIEN_AFFILIE_5" data-image="images/produit5.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">5</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="6" data-url="VOTRE_LIEN_AFFILIE_6" data-image="images/produit6.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">6</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="7" data-url="VOTRE_LIEN_AFFILIE_7" data-image="images/produit7.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">7</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="8" data-url="VOTRE_LIEN_AFFILIE_8" data-image="images/produit8.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">8</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="9" data-url="VOTRE_LIEN_AFFILIE_9" data-image="images/produit9.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">9</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="10" data-url="VOTRE_LIEN_AFFILIE_10" data-image="images/produit10.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">10</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="11" data-url="VOTRE_LIEN_AFFILIE_11" data-image="images/produit11.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">11</span></div><div class="card-back"></div></div></div>
 
         <!-- LIGNE 4 : Semaine Organisation -->
-        <div class="cell cell-theme">Semaine Organisation</div>
-        <div class="cell cell-future" data-day="12" data-url="VOTRE_LIEN_AFFILIE_12">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">12</span></div>
-                <div class="card-back">Astuce 12</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="13" data-url="VOTRE_LIEN_AFFILIE_13">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">13</span></div>
-                <div class="card-back">Astuce 13</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="14" data-url="VOTRE_LIEN_AFFILIE_14">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">14</span></div>
-                <div class="card-back">Astuce 14</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="15" data-url="VOTRE_LIEN_AFFILIE_15">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">15</span></div>
-                <div class="card-back">Astuce 15</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="16" data-url="VOTRE_LIEN_AFFILIE_16">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">16</span></div>
-                <div class="card-back">Astuce 16</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="17" data-url="VOTRE_LIEN_AFFILIE_17">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">17</span></div>
-                <div class="card-back">Astuce 17</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="18" data-url="VOTRE_LIEN_AFFILIE_18">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">18</span></div>
-                <div class="card-back">Astuce 18</div>
-            </div>
-        </div>
+        <div class="cell cell-theme">Semaine Org.</div>
+        <div class="cell cell-future" data-day="12" data-url="VOTRE_LIEN_AFFILIE_12" data-image="images/produit12.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">12</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="13" data-url="VOTRE_LIEN_AFFILIE_13" data-image="images/produit13.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">13</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="14" data-url="VOTRE_LIEN_AFFILIE_14" data-image="images/produit14.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">14</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="15" data-url="VOTRE_LIEN_AFFILIE_15" data-image="images/produit15.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">15</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="16" data-url="VOTRE_LIEN_AFFILIE_16" data-image="images/produit16.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">16</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="17" data-url="VOTRE_LIEN_AFFILIE_17" data-image="images/produit17.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">17</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="18" data-url="VOTRE_LIEN_AFFILIE_18" data-image="images/produit18.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">18</span></div><div class="card-back"></div></div></div>
 
         <!-- LIGNE 5 : Semaine Famille -->
         <div class="cell cell-theme">Semaine Famille</div>
-        <div class="cell cell-future" data-day="19" data-url="VOTRE_LIEN_AFFILIE_19">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">19</span></div>
-                <div class="card-back">Activité 19</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="20" data-url="VOTRE_LIEN_AFFILIE_20">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">20</span></div>
-                <div class="card-back">Activité 20</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="21" data-url="VOTRE_LIEN_AFFILIE_21">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">21</span></div>
-                <div class="card-back">Activité 21</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="22" data-url="VOTRE_LIEN_AFFILIE_22">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">22</span></div>
-                <div class="card-back">Activité 22</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="23" data-url="VOTRE_LIEN_AFFILIE_23">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">23</span></div>
-                <div class="card-back">Activité 23</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="24" data-url="VOTRE_LIEN_AFFILIE_24">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">24</span></div>
-                <div class="card-back">Activité 24</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="25" data-url="VOTRE_LIEN_AFFILIE_25">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">25</span></div>
-                <div class="card-back">Activité 25</div>
-            </div>
-        </div>
+        <div class="cell cell-future" data-day="19" data-url="VOTRE_LIEN_AFFILIE_19" data-image="images/produit19.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">19</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="20" data-url="VOTRE_LIEN_AFFILIE_20" data-image="images/produit20.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">20</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="21" data-url="VOTRE_LIEN_AFFILIE_21" data-image="images/produit21.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">21</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="22" data-url="VOTRE_LIEN_AFFILIE_22" data-image="images/produit22.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">22</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="23" data-url="VOTRE_LIEN_AFFILIE_23" data-image="images/produit23.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">23</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="24" data-url="VOTRE_LIEN_AFFILIE_24" data-image="images/produit24.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">24</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="25" data-url="VOTRE_LIEN_AFFILIE_25" data-image="images/produit25.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">25</span></div><div class="card-back"></div></div></div>
 
         <!-- LIGNE 6 : Semaine Bien-être -->
         <div class="cell cell-theme">Semaine Bien-être</div>
-        <div class="cell cell-future" data-day="26" data-url="VOTRE_LIEN_AFFILIE_26">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">26</span></div>
-                <div class="card-back">Conseil 26</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="27" data-url="VOTRE_LIEN_AFFILIE_27">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">27</span></div>
-                <div class="card-back">Conseil 27</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="28" data-url="VOTRE_LIEN_AFFILIE_28">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">28</span></div>
-                <div class="card-back">Conseil 28</div>
-            </div>
-            </div>
-               <div class="cell cell-future" data-day="29" data-url="VOTRE_LIEN_AFFILIE_29" data-image="CHEMIN_IMAGE_29.webp">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">29</span></div>
-                <div class="card-back">Conseil 29</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="30" data-url="VOTRE_LIEN_AFFILIE_30" data-image="CHEMIN_IMAGE_30.webp">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">30</span></div>
-                <div class="card-back">Conseil 30</div>
-            </div>
-        </div>
-        <div class="cell cell-future" data-day="31" data-url="VOTRE_LIEN_AFFILIE_31" data-image="CHEMIN_IMAGE_31.webp">
-            <div class="card-inner">
-                <div class="card-front"><span class="day-hint">31</span></div>
-                <div class="card-back">Conseil 31</div>
-            </div>
-        </div>
+        <div class="cell cell-future" data-day="26" data-url="VOTRE_LIEN_AFFILIE_26" data-image="images/produit26.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">26</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="27" data-url="VOTRE_LIEN_AFFILIE_27" data-image="images/produit27.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">27</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="28" data-url="VOTRE_LIEN_AFFILIE_28" data-image="images/produit28.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">28</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="29" data-url="VOTRE_LIEN_AFFILIE_29" data-image="images/produit29.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">29</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="30" data-url="VOTRE_LIEN_AFFILIE_30" data-image="images/produit30.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">30</span></div><div class="card-back"></div></div></div>
+        <div class="cell cell-future" data-day="31" data-url="VOTRE_LIEN_AFFILIE_31" data-image="images/produit31.webp"><div class="card-inner"><div class="card-front"><span class="day-hint">31</span></div><div class="card-back"></div></div></div>
         <div class="cell cell-empty"></div>
-    </div>
+        
+    </div> <!-- Fermeture de la grille calendar-container -->
 
     <footer>
         <p>© 2026 Sept à la Maison - Tous droits réservés.</p>
     </footer>
 
     <script>
-        // Récupération du jour d'aujourd'hui
         const aujourdHui = new Date();
         const jourActuel = aujourdHui.getDate();
         const moisActuel = aujourdHui.getMonth(); // 9 = Octobre
@@ -380,35 +224,41 @@
             const url = card.getAttribute('data-url');
             const imageSrc = card.getAttribute('data-image');
 
-            // CAS 1 : LE JOUR EST PASSÉ OU PRÉSENT
+            // 1. Jours passés et jour actuel : Image et lien direct
             if (jourCarte <= jourActuel || moisActuel > 9) {
-                // On transforme la case en lien cliquable direct avec son image
                 card.style.perspective = "none";
                 card.style.cursor = "pointer";
+                card.style.transition = "transform 0.2s, box-shadow 0.2s";
                 
-                // On remplace le contenu 3D interne par l'image directe
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = "scale(1.03)";
+                    card.style.boxShadow = "0 6px 14px rgba(163, 146, 116, 0.2)";
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = "scale(1)";
+                    card.style.boxShadow = "none";
+                });
+
                 card.innerHTML = `
-                    <span class="day-hint" style="position:absolute; top:8px; left:8px; z-index:10; font-size:0.85rem; font-weight:bold; color:var(--accent-color);">${jourCarte}</span>
+                    <span class="day-hint" style="position:absolute; top:8px; left:8px; z-index:10; font-size:0.85rem; font-weight:bold; color:var(--accent-color); background:rgba(255,255,255,0.85); padding:2px 6px; border-radius:4px;">${jourCarte}</span>
                     <img src="${imageSrc ? imageSrc : 'https://placeholder.com'}" alt="Jour ${jourCarte}" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
+                    <span class="click-badge" style="position:absolute; bottom:6px; right:6px; z-index:10; font-size:0.85rem; background:#3E3B35; color:#ffffff; width:22px; height:22px; display:flex; align-items:center; justify-content:center; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.25);">🔗</span>
                 `;
 
-                // Clic sur la case -> Ouvre directement le lien affilié
                 card.addEventListener('click', function() {
                     if (url && url !== '#' && !url.startsWith('VOTRE_LIEN_') && !url.startsWith('LIEN_')) {
                         window.open(url, '_blank');
                     }
                 });
             } 
-            // CAS 2 : LE JOUR EST DANS LE FUTUR
+            // 2. Jours futurs : Verrouillage et retournement 3D avec message secret
             else {
-                // On force le texte d'attente à l'arrière de la carte 3D
                 const cardBack = card.querySelector('.card-back');
                 if (cardBack) {
                     cardBack.innerHTML = "🔒 Ça arrive bientôt... Revenez demain ! ✨";
                     cardBack.style.backgroundColor = "#5A5449";
                 }
 
-                // Clic sur la case future -> Se retourne pour afficher le texte d'attente uniquement
                 card.addEventListener('click', function() {
                     this.classList.toggle('flipped');
                 });
@@ -417,3 +267,5 @@
     </script>
 </body>
 </html>
+
+        
