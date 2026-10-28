@@ -3,358 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sept à la Maison - Calendrier d'Octobre 2026</title>
+    <title>Sept à la Maison - Calendrier d'Automne Interactif</title>
+    
+    <!-- Configuration cruciale demandée par Google Discover -->
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="description" content="Découvrez nos inspirations quotidiennes, astuces d'organisation et sélections de saison pour la maison.">
+    
+    <!-- Open Graph pour les partages et Discover -->
+    <meta property="og:title" content="Sept à la Maison - Calendrier d'Automne">
+    <meta property="og:description" content="Inspirations quotidiennes et astuces d'organisation pour la maison.">
+    <meta property="og:type" content="website">
+
     <style>
-        :root {
-            --bg-creme: #FDFBF7;
-            --text-color: #3E3B35;
-            --border-color: #EAE6DF;
-            --accent-color: #A39274;
-            
-            /* Nuances de Rouges - Lie-de-vin & Pastel */
-            --swello-semaine: #4A1521;   /* Rouge lie-de-vin profond et intense */
-            --swello-weekend: #D69FA3;   /* Rouge poudré / vieux rose très pastel */
-            --swello-case-passé: #FFFFFF;/* Fond des jours disponibles pur */
-            --swello-case-futur: #F7F3EB;/* Fond des jours verrouillés */
-        }
-
-        body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-            background-color: var(--bg-creme);
-            color: var(--text-color);
-            margin: 0;
-            padding: 30px 20px;
-        }
-
-        header {
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            border-bottom: 2px solid var(--border-color); 
-            padding: 15px 25px; 
-            margin-bottom: 30px; 
-            background-color: #ffffff; 
-            border-radius: 12px;
-        }
-        header h1 { margin: 0; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--swello-semaine); }
-        header nav { display: flex; gap: 25px; }
-        header nav a { color: var(--text-color); text-decoration: none; font-size: 0.95rem; font-weight: 600; }
-        header nav a:hover { color: var(--swello-semaine); }
-
-        /* GRILLE CALENDRIER */
-        .calendar-container {
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            gap: 14px;
-            max-width: 1400px;
-            margin: 0 auto 50px auto;
-        }
-
-        .cell {
-            background-color: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            box-sizing: border-box;
-            overflow: hidden;
-            aspect-ratio: 1.15 / 1;
-        }
-
-        /* Entête Mois */
-        .cell-month { 
-            background-color: var(--swello-semaine); 
-            color: #ffffff; 
-            font-weight: 800; 
-            font-size: 1.1rem; 
-            text-align: center; 
-            justify-content: center;
-            letter-spacing: 2px;
-        }
-
-        /* Entêtes Jours */
-        .cell-day { 
-            font-weight: 700; 
-            font-size: 0.85rem; 
-            text-align: center; 
-            justify-content: center;
-            text-transform: uppercase;
-            color: #ffffff;
-        }
-        .cell-day.weekday { background-color: var(--swello-semaine); }
-        .cell-day.weekend { background-color: var(--swello-weekend); }
-
-        /* Colonne Thème */
-        .cell-theme { 
-            background-color: #F0EAE1; 
-            color: var(--swello-semaine);
-            font-style: italic; 
-            font-size: 0.85rem; 
-            text-align: center; 
-            justify-content: center;
-            font-weight: 700; 
-            border-left: 4px solid var(--accent-color);
-        }
-
-        .cell-empty {
-            background-color: rgba(226, 221, 213, 0.25);
-            border: 1px dashed var(--border-color);
-        }
-
-        /* Badge d'action épuré */
-        .click-badge {
-            position: absolute; 
-            bottom: 8px; 
-            right: 8px; 
-            z-index: 10; 
-            font-size: 0.8rem; 
-            background: var(--swello-semaine); 
-            color: #ffffff; 
-            width: 24px; 
-            height: 24px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            border-radius: 50%; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-        }
-
-        /* --- LOGIQUE 3D DES CARTES FUTURES --- */
-        .cell-future {
-            perspective: 1000px;
-            background-color: transparent !important;
-            border: none !important;
-            cursor: pointer;
-        }
-        .card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-        .cell-future.flipped .card-inner {
-            transform: rotateY(180deg);
-        }
-        .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            box-sizing: border-box;
-        }
-        .card-front {
-            background-color: var(--swello-case-futur);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .card-front::after {
-            content: "✨";
-            font-size: 1.4rem;
-            opacity: 0.3;
-        }
-        .card-back {
-            background-color: var(--swello-semaine);
-            color: #ffffff;
-            transform: rotateY(180deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: 600;
-            padding: 10px;
-            text-align: center;
-        }
-
-        /* ZONE SÉMANTIQUE SEO */
-        .seo-section {
-            max-width: 1200px;
-            margin: 60px auto 20px auto;
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.01);
-        }
-        .seo-section h2 {
-            color: var(--swello-semaine);
-            font-size: 1.6rem;
-            margin-top: 0;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--swello-weekend);
-            padding-bottom: 10px;
-        }
-        .seo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        .seo-article h3 {
-            color: var(--text-color);
-            font-size: 1.15rem;
-            margin-bottom: 12px;
-        }
-        .seo-article p {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: #615E58;
-            margin: 0;
-        }
-
-        footer { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--border-color); font-size: 0.85rem; color: #7A756C; }
+        /* Le code CSS (Pièce n°3) sera placé ici pour l'intégration des couleurs Lie-de-vin et Pastel */
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Sept à la maison</h1>
-        <nav>
-            <a href="./../">Accueil</a>
-            <a href="../ressources.html">Ressources</a>
-            <a href="../boutique.html">Boutique</a>
+    <!-- Entête du site -->
+    <header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; margin-bottom: 20px; border-bottom: 1px solid #EAE6DF;">
+        <h1 style="margin: 0; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px;">Sept à la maison</h1>
+        <nav style="display: flex; gap: 20px;">
+            <a href="./../" style="color: #3E3B35; text-decoration: none; font-weight: 500;">Accueil</a>
+            <a href="../ressources.html" style="color: #3E3B35; text-decoration: none; font-weight: 500;">Ressources</a>
+            <a href="../boutique.html" style="color: #3E3B35; text-decoration: none; font-weight: 500;">Boutique</a>
         </nav>
     </header>
 
-    <div class="calendar-container">
-        
-        <!-- LIGNE 1 : Les Entêtes -->
-        <div class="cell cell-month">OCTOBRE</div>
-        <div class="cell cell-day weekday">Lundi</div>
-        <div class="cell cell-day weekday">Mardi</div>
-        <div class="cell cell-day weekday">Mercredi</div>
-        <div class="cell cell-day weekday">Jeudi</div>
-        <div class="cell cell-day weekday">Vendredi</div>
-        <div class="cell cell-day weekend">Samedi</div>
-        <div class="cell cell-day weekend">Dimanche</div>
-               
-        <!-- LIGNE 2 : Semaine Déco -->
-        <div class="cell cell-theme">Semaine Déco</div>
-        <div class="cell cell-empty"></div>
-        <div class="cell cell-empty"></div>
-        <div class="cell cell-empty"></div>
-        <div class="cell cell-future" data-day="1" data-url="VOTRE_LIEN_1" data-image="images/produit1.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="2" data-url="VOTRE_LIEN_2" data-image="images/produit2.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="3" data-url="VOTRE_LIEN_3" data-image="images/produit3.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="4" data-url="VOTRE_LIEN_4" data-image="images/produit4.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-
-             <!-- LIGNE 3 : Semaine Cuisine (7 jours) -->
-        <div class="cell cell-theme">Semaine Cuisine</div>
-        <div class="cell cell-future" data-day="5" data-url="VOTRE_LIEN_5" data-image="images/produit5.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="6" data-url="VOTRE_LIEN_6" data-image="images/produit6.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="7" data-url="VOTRE_LIEN_7" data-image="images/produit7.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="8" data-url="VOTRE_LIEN_8" data-image="images/produit8.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="9" data-url="VOTRE_LIEN_9" data-image="images/produit9.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="10" data-url="VOTRE_LIEN_10" data-image="images/produit10.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="11" data-url="VOTRE_LIEN_11" data-image="images/produit11.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-
-        <!-- LIGNE 4 : Semaine Organisation -->
-        <div class="cell cell-theme">Semaine Org.</div>
-        <div class="cell cell-future" data-day="12" data-url="VOTRE_LIEN_12" data-image="images/produit12.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="13" data-url="VOTRE_LIEN_13" data-image="images/produit13.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="14" data-url="VOTRE_LIEN_14" data-image="images/produit14.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="15" data-url="VOTRE_LIEN_15" data-image="images/produit15.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="16" data-url="VOTRE_LIEN_16" data-image="images/produit16.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="17" data-url="VOTRE_LIEN_17" data-image="images/produit17.webp"><div class="card-inner"><div class="card-front"><span class="day-hint"></span></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="18" data-url="VOTRE_LIEN_18" data-image="images/produit18.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-
-        <!-- LIGNE 5 : Semaine Famille -->
-        <div class="cell cell-theme">Semaine Famille</div>
-        <div class="cell cell-future" data-day="19" data-url="VOTRE_LIEN_19" data-image="images/produit19.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="20" data-url="VOTRE_LIEN_20" data-image="images/produit20.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="21" data-url="VOTRE_LIEN_21" data-image="images/produit21.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="22" data-url="VOTRE_LIEN_22" data-image="images/produit22.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="23" data-url="VOTRE_LIEN_23" data-image="images/produit23.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="24" data-url="VOTRE_LIEN_24" data-image="images/produit24.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="25" data-url="VOTRE_LIEN_25" data-image="images/produit25.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-
-        <!-- LIGNE 6 : Semaine Bien-être -->
-        <div class="cell cell-theme">Semaine Bien-être</div>
-        <div class="cell cell-future" data-day="26" data-url="VOTRE_LIEN_26" data-image="images/produit26.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="27" data-url="VOTRE_LIEN_27" data-image="images/produit27.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="28" data-url="VOTRE_LIEN_28" data-image="images/produit28.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="29" data-url="VOTRE_LIEN_29" data-image="images/produit29.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="30" data-url="VOTRE_LIEN_30" data-image="images/produit30.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-future" data-day="31" data-url="VOTRE_LIEN_31" data-image="images/produit31.webp"><div class="card-inner"><div class="card-front"></div><div class="card-back"></div></div></div>
-        <div class="cell cell-empty"></div>
+    <!-- Zone du Titre Principal (Comme sur Swello : en gros, au-dessus à gauche) -->
+    <div style="max-width: 1400px; margin: 30px auto 15px auto; padding: 0 10px;">
+        <h2 style="font-size: 2.2rem; font-weight: 800; color: #4A1521; margin: 0; font-family: sans-serif;">Octobre 2026</h2>
     </div>
 
-    <!-- ZONE SÉMANTIQUE SEO POUR GOOGLE -->
-    <section class="seo-section">
-        <h2>Inspirations et Organisation de la Maison pour l'Automne</h2>
-        <div class="seo-grid">
-            <article class="seo-article">
-                <h3>Idées Déco et Ambiance Cocooning</h3>
-                <p>Découvrez nos sélections d'accessoires et d'aménagements intérieurs pour transformer votre foyer en un véritable havre de paix. Du salon chaleureux à la chambre d'amis accueillante, trouvez l'inspiration pour harmoniser vos espaces de vie avec les tendances de saison.</p>
-            </article>
-            <article class="seo-article">
-                <h3>Cuisine Familiale et Recettes de Saison</h3>
-                <p>Explorez des idées culinaires équilibrées et gourmandes conçues pour toute la famille. Notre calendrier met à l'honneur des ustensiles pratiques, des astuces de batch cooking et des produits phares pour cuisiner des plats réconfortants au quotidien.</p>
-            </article>
-            <article class="seo-article">
-                <h3>Organisation Spacieuse et Rangement</h3>
-                <p>Simplifiez votre gestion domestique grâce à nos routines éprouvées. Astuces de rangement, listes de courses partagées et plannings de ménage collaboratifs vous aideront à optimiser votre temps pour vous consacrer pleinement à ce qui compte vraiment.</p>
-            </article>
-        </div>
-    </section>
-
-    <footer>
-        <p>© 2026 Sept à la Maison - Tous droits réservés.</p>
-    </footer>
-
-    <script>
-        const aujourdHui = new Date();
-        const jourActuel = aujourdHui.getDate();
-        const moisActuel = aujourdHui.getMonth(); // 9 = Octobre
-
-        document.querySelectorAll('.cell-future').forEach(card => {
-            const jourCarte = parseInt(card.getAttribute('data-day'), 10);
-            const url = card.getAttribute('data-url');
-            const imageSrc = card.getAttribute('data-image');
-
-            // 1. JOURS PASSÉS ET JOUR ACTUEL
-            if (jourCarte <= jourActuel || moisActuel > 9) {
-                card.className = "cell"; 
-                card.style.cursor = "pointer";
-                card.style.backgroundColor = "var(--swello-case-passé)";
-                card.style.transition = "transform 0.2s, box-shadow 0.2s";
+    <!-- Disposition Globale : Grille à gauche + Barre latérale à droite -->
+    <main class="main-layout" style="display: flex; flex-wrap: wrap; gap: 25px; max-width: 1400px; margin: 0 auto; padding: 0 10px;">
+        
+        <!-- Bloc du Calendrier (Prend plus de place) -->
+        <section style="flex: 3; min-width: 320px;">
+            <div class="calendar-container" id="calendar-grid">
                 
-                card.addEventListener('mouseenter', () => {
-                    card.style.transform = "translateY(-3px)";
-                    card.style.boxShadow = "0 6px 16px rgba(45, 17, 36, 0.12)";
-                });
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = "translateY(0)";
-                    card.style.boxShadow = "none";
-                });
+                <!-- LIGNE DES EN-TÊTES DE JOURS (7 colonnes parfaites, sans la case mois) -->
+                <div class="cell-day">Lundi</div>
+                <div class="cell-day">Mardi</div>
+                <div class="cell-day">Mercredi</div>
+                <div class="cell-day">Jeudi</div>
+                <div class="cell-day">Vendredi</div>
+                <div class="cell-day-we">Samedi</div>
+                <div class="cell-day-we">Dimanche</div>
+                
+                <!-- Les cases thématiques, les cases vides et vos 31 jours seront injectés ici par le script -->
+            </div>
+        </section>
 
-                card.innerHTML = `
-                    <img src="${imageSrc ? imageSrc : 'https://placeholder.com'}" alt="Suggestion du jour" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
-                    <span class="click-badge">🔗</span>
-                `;
+        <!-- Barre Latérale "Notes & Conseils" (Style Swello à droite) -->
+        <aside class="sidebar-notes" style="flex: 1; min-width: 280px;">
+            <div style="background: #ffffff; border: 1px solid #EAE6DF; border-radius: 12px; padding: 25px; position: sticky; top: 20px;">
+                <h3 style="color: #4A1521; font-size: 1.2rem; text-transform: uppercase; margin-top: 0; margin-bottom: 5px;">Le Conseil du Mois</h3>
+                <div style="height: 2px; width: 40px; background: #D69FA3; margin-bottom: 15px;"></div>
+                <p style="font-size: 0.9rem; line-height: 1.6; color: #6E6A62; margin-bottom: 10px;"><strong>Constituez votre bibliothèque d'idées :</strong></p>
+                <p style="font-size: 0.85rem; line-height: 1.6; color: #6E6A62;">Notez vos inspirations au fil de l'eau. Quand vous manquerez d'idées neuves pour aménager ou organiser votre intérieur, vous disposerez d'une mine d'or prête à relancer votre créativité ! 🍁</p>
+            </div>
+        </aside>
 
-                card.addEventListener('click', function() {
-                    if (url && url !== '#' && !url.startsWith('VOTRE_LIEN_') && !url.startsWith('LIEN_')) {
-                        window.open(url, '_blank');
-                    }
-                });
-            } 
-            // 2. JOURS FUTURS
-            else {
-                const cardBack = card.querySelector('.card-back');
-                if (cardBack) {
-                    cardBack.innerHTML = "🔒 Bientôt disponible... Revenez demain ! ✨";
-                }
+    </main>
 
-                card.addEventListener('click', function() {
-                    this.classList.toggle('flipped');
-                });
-            }
-        });
-    </script>
+    <!-- Section sémantique cachée pour les robots Google (SEO de secours si JS désactivé) -->
+    <noscript>
+        <section style="max-width: 1400px; margin: 40px auto; padding: 20px;">
+            <h2>Organisation de la Maison et Inspirations d'Automne</h2>
+            <p>Retrouvez chaque jour nos conseils exclusifs en décoration chaleureuse, recettes familiales de saison et astuces de rangement pour harmoniser votre foyer.</p>
+        </section>
+    </noscript>
+
 </body>
 </html>
