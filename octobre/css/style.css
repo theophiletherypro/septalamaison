@@ -1,20 +1,189 @@
+/* ==========================================================================
+   1. DESIGN SYSTEM & COULEURS
+   ========================================================================== */
 :root {
     --bg-creme: #FDFBF7;
     --text-color: #3E3B35;
     --border-color: #EAE6DF;
     --accent-color: #A39274;
     
-    /* Nuances de Rouges inspirées de Swello */
-    --swello-semaine: #4A1521;   /* Rouge lie-de-vin profond et intense */
-    --swello-weekend: #D69FA3;   /* Rouge poudré / vieux rose très pastel */
+    /* Nuances de Rouges - Lie-de-vin & Pastel */
+    --swello-semaine: #4A1521;   /* Rouge lie-de-vin profond */
+    --swello-weekend: #D69FA3;   /* Vieux rose pastel */
     --swello-case-passé: #FFFFFF;/* Fond des jours disponibles */
     --swello-case-futur: #F7F3EB;/* Fond des jours verrouillés */
+}
+
+/* Reset de base pro */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     background-color: var(--bg-creme);
     color: var(--text-color);
-    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-    margin: 0;
-    padding: 0;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    padding: 20px;
+}
+
+/* ==========================================================================
+   2. DISPOSITION STRUCTURELLE (LAYOUT STYLE SWELLO)
+   ========================================================================== */
+.main-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Sur grand écran (Ordinateur), on met la grille à gauche et les notes à droite */
+@media (min-width: 1024px) {
+    .main-layout {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .calendar-wrapper {
+        flex: 3; /* Prend 3/4 de l'espace disponible */
+    }
+    .sidebar-notes {
+        flex: 1; /* Prend 1/4 de l'espace pour les notes */
+        position: sticky;
+        top: 20px; /* Reste fixé en haut au défilement */
+    }
+}
+
+/* ==========================================================================
+   3. LA GRILLE DU CALENDRIER (7 COLONNES COMPLETES)
+   ========================================================================== */
+.calendar-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 colonnes pour les 7 jours de la semaine */
+    gap: 12px;
+}
+
+/* Style de base de chaque case (Jour, Thème ou Vide) */
+.cell {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1.15 / 1; /* Style Swello : légèrement plus large que haute */
+}
+
+/* Les Cases d'entêtes des Jours (Lundi, Mardi...) */
+.cell-day {
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 12px 5px;
+    text-transform: uppercase;
+    color: #ffffff;
+    border-radius: 6px;
+    background-color: var(--swello-semaine); /* Lie-de-vin pour la semaine */
+}
+.cell-day-we {
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 12px 5px;
+    text-transform: uppercase;
+    color: #ffffff;
+    border-radius: 6px;
+    background-color: var(--swello-weekend); /* Rose pastel pour le week-end */
+}
+
+/* Les lignes intercalaires de thèmes (ex: Semaine Déco) - Elles traversent toute la grille */
+.cell-theme {
+    grid-column: 1 / -1; /* S'étale sur les 7 colonnes d'un coup */
+    background-color: #F0EAE1;
+    color: var(--swello-semaine);
+    font-style: italic;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 10px 15px;
+    border-left: 4px solid var(--accent-color);
+    border-radius: 4px;
+    margin: 5px 0;
+}
+
+/* Cases vides pour combler les décalages du début de mois */
+.cell-empty {
+    background-color: rgba(234, 230, 223, 0.25);
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+}
+
+/* Badge discret d'action pour inviter au clic (Lien externe) */
+.click-badge {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    z-index: 5;
+    font-size: 0.8rem;
+    background: var(--swello-semaine);
+    color: #ffffff;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+/* ==========================================================================
+   4. STRUCTURE DE LA CARTE FUTURE RETOURNABLE (EFFET 3D)
+   ========================================================================== */
+.cell-future {
+    perspective: 1000px;
+    background-color: transparent !important;
+    border: none !important;
+    cursor: pointer;
+}
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+}
+.cell-future.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    box-sizing: border-box;
+}
+.card-front {
+    background-color: var(--swello-case-futur);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card-front::after {
+    content: "✨";
+    font-size: 1.3rem;
+    opacity: 0.35;
+}
+.card-back {
+    background-color: var(--swello-semaine);
+    color: #ffffff;
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
 }
