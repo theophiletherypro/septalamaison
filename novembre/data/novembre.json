@@ -1,0 +1,16 @@
+[
+{
+"jour": 1,
+"titre": "La Bougie Crépitante Mèche Bois",
+"description": "Une cire naturelle et une mèche en bois qui crépite comme un vrai feu de cheminée. L'ambiance d'automne parfaite.",
+"image": "https://images.unsplash.com/photo-1603006905003-be475563bc59?w=500",
+"lienAmazon": "https://amzn.to/votre-lien-affilie-1"
+},
+{
+"jour": 2,
+"titre": "Le Plaid Scandinave Grosse Maille",
+"description": "Idéal pour s'emmitoufler sur le canapé lors des soirées fraîches de novembre.",
+"image": "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?w=500",
+"lienAmazon": "https://amzn.to/votre-lien-affilie-2"
+}
+]
