@@ -3,70 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Almanach de Novembre | Une idée confort par jour - septalamaison.fr</title>
+    <title>Novembre 2026 - Sept à la Maison</title>
     
-    <!-- CHARGEMENT OFFICIEL DU CDN TAILWIND V4 -->
-    <script src="https://jsdelivr.net"></script>
+    <!-- APPEL DIRECT À VOTRE PROPRE STYLE CSS EXISTANT -->
+    <link rel="stylesheet" href="../octobre/css/style.css"> 
     
-    <style type="text/tailwindcss">
-        /* Styles pour gérer la pop-up de conversion */
-        .modal { display: none; }
+    <style>
+        /* Styles indispensables pour l'affichage de la fenêtre pop-up */
+        .modal { 
+            display: none; 
+            position: fixed; 
+            inset: 0; 
+            background: rgba(0,0,0,0.6); 
+            z-index: 1000; 
+            align-items: center; 
+            justify-content: center; 
+        }
         .modal.active { display: flex; }
+        .modal-content { 
+            background: #ffffff; 
+            padding: 30px; 
+            border-radius: 12px; 
+            max-width: 450px; 
+            width: 100%; 
+            position: relative; 
+            box-sizing: border-box;
+        }
+        
+        /* Forçage d'une grille propre sans framework externe */
+        .grid-novembre {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
     </style>
 </head>
-<body class="bg-[#FDFBF7] text-[#3E3B35] font-sans antialiased">
+<body>
 
-    <!-- En-tête (Header) aux couleurs de votre site -->
-    <header class="border-b border-[#EAE6DF] bg-white sticky top-0 z-50">
-        <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="/" class="text-xl font-bold tracking-wider uppercase text-[#3E3B35]">SEPT À LA MAISON</a>
-            <a href="/" class="text-sm font-medium text-[#7A756C] hover:text-[#3E3B35] transition">← L'Almanach</a>
-        </div>
+    <header>
+        <h1>Sept à la maison</h1>
+        <nav>
+            <a href="../ressources.html">Ressources</a>
+            <a href="../boutique.html">Boutique</a>
+        </nav>
     </header>
 
-    <!-- Zone d'introduction style Pinterest -->
-    <section class="max-w-4xl mx-auto px-4 py-12 text-center">
-        <span class="text-xs font-bold tracking-widest text-[#A39274] uppercase bg-[#FFFBF5] border border-[#EAE6DF] px-3 py-1 rounded-full">Automne & Cocooning</span>
-        <h1 class="text-4xl font-light tracking-wide text-[#3E3B35] uppercase mt-4 mb-4">Novembre à la Maison</h1>
-        <p class="text-[#7A756C] max-w-xl mx-auto text-sm sm:text-base italic">
-            30 jours, 30 inspirations. Cliquez sur n'importe quelle case pour découvrir nos objets et astuces indispensables pour affronter le froid.
-        </p>
-    </section>
+    <div class="hero">
+        <h2>Novembre à la Maison</h2>
+        <p class="tagline">30 jours, 30 inspirations. Cliquez sur une case pour découvrir notre sélection quotidienne.</p>
+    </div>
 
-    <!-- La grille visuelle de 30 cases -->
-    <main class="max-w-5xl mx-auto px-4 pb-24">
-        <div id="calendar-grid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-4">
-            <!-- Injecté dynamiquement par le JavaScript -->
-        </div>
+    <!-- Conteneur qui utilise notre structure de grille -->
+    <main class="grid-novembre" id="calendar-grid">
+        <!-- Injecté dynamiquement par le JavaScript -->
     </main>
 
-    <!-- Fenêtre Modale (Pop-up de conversion Amazon) -->
-    <div id="product-modal" class="modal fixed inset-0 bg-black/50 z-50 items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl max-w-md w-full overflow-hidden shadow-xl p-6 relative">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold" aria-label="Fermer">&times;</button>
-            
-            <div id="modal-image" class="aspect-square bg-[#FDFBF7] border border-[#EAE6DF] rounded-xl mb-4 overflow-hidden">
-                <!-- Image du produit -->
-            </div>
-            
-            <span id="modal-day" class="text-xs font-bold text-[#A39274] uppercase tracking-wider block mb-1"></span>
-            <h3 id="modal-title" class="text-xl font-bold text-[#3E3B35] mb-2"></h3>
-            <p id="modal-desc" class="text-[#7A756C] text-sm mb-6 leading-relaxed"></p>
-            
-            <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer nofollow" class="block w-full text-center bg-[#3E3B35] hover:bg-[#A39274] text-white font-semibold py-3 px-4 rounded-full transition duration-200 shadow-md">
-                Vérifier le prix sur Amazon →
-            </a>
+    <!-- Fenêtre Modale (Pop-up) aux couleurs de votre charte graphique -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <button onclick="closeModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--text-color);">&times;</button>
+            <div id="modal-image" style="width:100%; aspect-ratio:1; background:#f5f5f5; border-radius:8px; overflow:hidden; margin-bottom:15px;"></div>
+            <span id="modal-day" style="font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:#7A756C; display:block; margin-bottom:5px;"></span>
+            <h3 id="modal-title" style="margin-top:0; text-transform:uppercase; font-size:1.2rem; letter-spacing:1px;"></h3>
+            <p id="modal-desc" style="color:#7A756C; font-size:0.95rem; line-height:1.5; margin-bottom:20px;"></p>
+            <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer nofollow" class="main-btn" style="display:block; text-align:center; text-decoration:none;">Vérifier le prix sur Amazon →</a>
         </div>
     </div>
 
-    <!-- Mentions d'affiliation réglementaires -->
-    <footer class="bg-white border-t border-[#EAE6DF] py-12 text-center text-xs text-[#7A756C]">
-        <p class="max-w-2xl mx-auto px-4">
-            En tant que Partenaire Amazon, septalamaison.fr réalise un bénéfice sur les achats remplissant les conditions requises.
-        </p>
+    <footer>
+        <p>&copy; 2026 septalamaison.fr. En tant que Partenaire Amazon, ce site réalise un bénéfice sur les achats remplissant les conditions requises.</p>
     </footer>
 
-    <!-- Script logique d'affichage -->
     <script>
         let baseDonneesNovembre = {};
 
@@ -82,7 +92,7 @@
                 construireGrille();
                 detecterLienPinterest();
             } catch (erreur) {
-                console.error("Impossible de charger le fichier JSON :", erreur);
+                console.error("Erreur de chargement du JSON :", erreur);
                 construireGrille();
             }
         }
@@ -96,18 +106,22 @@
                 const item = baseDonneesNovembre[jour];
                 const caseCalendrier = document.createElement('div');
                 
-                caseCalendrier.className = "aspect-square rounded-xl border flex flex-col items-center justify-center cursor-pointer transition transform hover:-translate-y-1 bg-white border-[#EAE6DF] shadow-sm hover:border-[#A39274]";
+                // Emprunt direct de votre style de carte pour la cohérence graphique
+                caseCalendrier.className = "month-card"; 
+                caseCalendrier.style.cursor = "pointer";
+                caseCalendrier.style.textAlign = "center";
+                caseCalendrier.style.padding = "20px";
                 
                 caseCalendrier.innerHTML = `
-                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Jour</span>
-                    <span class="text-2xl font-black text-[#A39274]">${jour}</span>
-                    ${item ? '<span class="text-[10px] text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded mt-1 font-medium">Disponible</span>' : '<span class="text-[10px] text-gray-300 mt-1">Bientôt</span>'}
+                    <div style="font-size: 0.8rem; color: #7A756C; text-transform: uppercase; letter-spacing: 1px;">Jour</div>
+                    <div style="font-size: 2rem; font-weight: 300; margin: 5px 0;">${jour}</div>
+                    ${item ? '<span style="font-size: 0.75rem; color: #ffffff; background: var(--accent-color); padding: 3px 8px; border-radius: 12px; font-weight: 600;">Ouvrir</span>' : '<span style="font-size: 0.75rem; color: #7A756C;">Bientôt</span>'}
                 `;
 
                 if (item) {
                     caseCalendrier.onclick = () => ouvrirModale(jour);
                 } else {
-                    caseCalendrier.onclick = () => alert("Cette idée arrive très vite ! ✨");
+                    caseCalendrier.onclick = () => alert("Cette inspiration arrive très vite ! ✨");
                 }
                 grille.appendChild(caseCalendrier);
             }
@@ -116,10 +130,10 @@
         function ouvrirModale(jour) {
             const item = baseDonneesNovembre[jour];
             if (!item) return;
-            document.getElementById('modal-day').innerText = `Inspiration du ${jour} Novembre`;
+            document.getElementById('modal-day').innerText = `Idée du ${jour} Novembre`;
             document.getElementById('modal-title').innerText = item.titre;
             document.getElementById('modal-desc').innerText = item.description;
-            document.getElementById('modal-image').innerHTML = `<img src="${item.image}" class="w-full h-full object-cover rounded-xl">`;
+            document.getElementById('modal-image').innerHTML = `<img src="${item.image}" style="width:100%; height:100%; object-fit:cover;">`;
             document.getElementById('modal-link').href = item.lienAmazon;
             document.getElementById('product-modal').classList.add('active');
         }
