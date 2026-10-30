@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Almanach de Novembre | Une idée confort par jour - septalamaison.fr</title>
-    <!-- ACTIVATION DU CDN TAILWIND CSS SÉCURISÉ -->
-    <script src="https://tailwindcss.com"></script>
-    <style>
-        /* Styles pour gérer l'affichage de la fenêtre pop-up */
+    
+    <!-- CHARGEMENT OFFICIEL DU CDN TAILWIND V4 -->
+    <script src="https://jsdelivr.net"></script>
+    
+    <style type="text/tailwindcss">
+        /* Styles pour gérer la pop-up de conversion */
         .modal { display: none; }
         .modal.active { display: flex; }
     </style>
@@ -17,12 +19,12 @@
     <!-- En-tête (Header) aux couleurs de votre site -->
     <header class="border-b border-[#EAE6DF] bg-white sticky top-0 z-50">
         <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="/" class="text-xl font-bold tracking-wider text-uppercase text-[#3E3B35]">SEPT À LA MAISON</a>
+            <a href="/" class="text-xl font-bold tracking-wider uppercase text-[#3E3B35]">SEPT À LA MAISON</a>
             <a href="/" class="text-sm font-medium text-[#7A756C] hover:text-[#3E3B35] transition">← L'Almanach</a>
         </div>
     </header>
 
-    <!-- Zone d'introduction de style épuré Pinterest -->
+    <!-- Zone d'introduction style Pinterest -->
     <section class="max-w-4xl mx-auto px-4 py-12 text-center">
         <span class="text-xs font-bold tracking-widest text-[#A39274] uppercase bg-[#FFFBF5] border border-[#EAE6DF] px-3 py-1 rounded-full">Automne & Cocooning</span>
         <h1 class="text-4xl font-light tracking-wide text-[#3E3B35] uppercase mt-4 mb-4">Novembre à la Maison</h1>
@@ -31,7 +33,7 @@
         </p>
     </section>
 
-    <!-- LA GRILLE VISUELLE (30 cases horizontales et verticales) -->
+    <!-- La grille visuelle de 30 cases -->
     <main class="max-w-5xl mx-auto px-4 pb-24">
         <div id="calendar-grid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-4">
             <!-- Injecté dynamiquement par le JavaScript -->
@@ -49,7 +51,7 @@
             
             <span id="modal-day" class="text-xs font-bold text-[#A39274] uppercase tracking-wider block mb-1"></span>
             <h3 id="modal-title" class="text-xl font-bold text-[#3E3B35] mb-2"></h3>
-            <p id="modal-desc" class="text-[#7A756C] text-sm mb-6延 leading-relaxed"></p>
+            <p id="modal-desc" class="text-[#7A756C] text-sm mb-6 leading-relaxed"></p>
             
             <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer nofollow" class="block w-full text-center bg-[#3E3B35] hover:bg-[#A39274] text-white font-semibold py-3 px-4 rounded-full transition duration-200 shadow-md">
                 Vérifier le prix sur Amazon →
@@ -57,7 +59,7 @@
         </div>
     </div>
 
-    <!-- Pied de page avec votre mention d'affiliation réglementaire -->
+    <!-- Mentions d'affiliation réglementaires -->
     <footer class="bg-white border-t border-[#EAE6DF] py-12 text-center text-xs text-[#7A756C]">
         <p class="max-w-2xl mx-auto px-4">
             En tant que Partenaire Amazon, septalamaison.fr réalise un bénéfice sur les achats remplissant les conditions requises.
@@ -81,7 +83,7 @@
                 detecterLienPinterest();
             } catch (erreur) {
                 console.error("Impossible de charger le fichier JSON :", erreur);
-                construireGrille(); // Génère quand même la structure visuelle en cas de bug de données
+                construireGrille();
             }
         }
 
@@ -94,8 +96,7 @@
                 const item = baseDonneesNovembre[jour];
                 const caseCalendrier = document.createElement('div');
                 
-                // Classes de style Tailwind pour rendre chaque case magnifique
-                caseCalendrier.className = `aspect-square rounded-xl border flex flex-col items-center justify-center cursor-pointer transition transform hover:-translate-y-1 bg-white border-[#EAE6DF] shadow-sm hover:border-[#A39274]`;
+                caseCalendrier.className = "aspect-square rounded-xl border flex flex-col items-center justify-center cursor-pointer transition transform hover:-translate-y-1 bg-white border-[#EAE6DF] shadow-sm hover:border-[#A39274]";
                 
                 caseCalendrier.innerHTML = `
                     <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Jour</span>
