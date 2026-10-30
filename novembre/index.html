@@ -1,1 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Almanach de Novembre | Une idée confort par jour - septalamaison.fr</title>
+    <!-- Tailwind CSS pour un design moderne et responsive -->
+    <script src="https://tailwindcss.com"></script>
+    <style>
+        .modal { display: none; }
+        .modal.active { display: flex; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans antialiased">
 
+    <!-- Header local du mois -->
+    <header class="border-b border-gray-100 bg-white sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="text-2xl font-black tracking-tight text-indigo-600">sept<span class="text-gray-900">alamaison.fr</span></a>
+            <a href="/" class="text-sm font-medium text-gray-500 hover:text-gray-900">← L'Almanach</a>
+        </div>
+    </header>
+
+    <!-- Titre et description de la collection de Novembre -->
+    <section class="max-w-4xl mx-auto px-4 py-12 text-center">
+        <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase bg-indigo-50 px-3 py-1 rounded-full">Automne & Cocooning</span>
+        <h1 class="text-4xl font-black tracking-tight mt-4 mb-4">Novembre à la Maison</h1>
+        <p class="text-gray-600 max-w-xl mx-auto text-sm sm:text-base">
+            30 jours, 30 inspirations. Explorez notre sélection quotidienne d'objets pour rendre votre intérieur chaleureux ce mois-ci.
+        </p>
+    </section>
+
+    <!-- Grille des 30 cases du calendrier -->
+    <main class="max-w-5xl mx-auto px-4 pb-24">
+        <div id="calendar-grid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-4">
+            <!-- Injecté dynamiquement par le script -->
+        </div>
+    </main>
+
+    <!-- La fenêtre Modale (Pop-up) unique pour les produits -->
+    <div id="product-modal" class="modal fixed inset-0 bg-black/60 z-50 items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl max-w-md w-full overflow-hidden shadow-xl p-6 relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold" aria-label="Fermer">&times;</button>
+            <div id="modal-image" class="aspect-square bg-gray-100 rounded-xl mb-4 overflow-hidden"></div>
+            <span id="modal-day" class="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-1"></span>
+            <h3 id="modal-title" class="text-xl font-bold text-gray-900 mb-2"></h3>
+            <p id="modal-desc" class="text-gray-600 text-sm mb-6 leading-relaxed"></p>
+            <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer nofollow" class="block w-full text-center bg-gray-900 hover:bg-indigo-600 text-white font-semibold py-3 px-4 rounded-xl transition shadow-sm">
+                Vérifier le prix sur Amazon →
+            </a>
+        </div>
+    </div>
+
+    <!-- Pied de page avec mentions légales d'affiliation requises -->
+    <footer class="bg-white border-t border-gray-100 py-12 text-center text-xs text-gray-400">
+        <p class="max-w-2xl mx-auto px-4">
+            En tant que Partenaire Amazon, septalamaison.fr réalise un bénéfice sur les achats remplissant les conditions requises.
+        </p>
+    </footer>
+
+    <!-- Logique JavaScript intégrée -->
+    <script>
+        let baseDonneesNovembre = {};
+
+        // 1. Récupération des données du fichier JSON
+        async function chargerAlmanach() {
+            try {
+                const reponse = await fetch('./data/novembre.json');
+                const donnees = await reponse.json();
+                
+                // On organise les données par jour pour y accéder immédiatement
+                donnees.forEach(item => {
+                    baseDonneesNovembre[item.jour] = item;
+                });
+
+                construireGrille();
+                detecterLienPinterest();
+            } catch (erreur) {
+                console.error("Impossible de charger le fichier JSON de novembre :", erreur);
+            }
+        }
+
+        // 2. Création de la grille des 30 jours
+        function construireGrille() {
+            const grille = document.getElementById('calendar-grid');
+            for (let jour = 1; jour <= 30; jour++) {
+                const item = baseDonneesNovembre[jour];
+                const caseCalendrier = document.createElement('div');
+                caseCalendrier.className = `aspect-square rounded-xl border flex flex-col items-center justify-center cursor-pointer transition transform hover:-translate-y-1 bg-white border-gray-100 shadow-sm hover:border-indigo-500`;
+                
+                caseCalendrier.innerHTML = `
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Jour</span>
+                    <span class="text-2xl font-black text-indigo-600">${jour}</span>
+                    ${item ? '<span class="text-[10px] text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded mt-1 font-medium">Disponible</span>' : '<span class="text-[10px] text-gray-400 mt-1">Bientôt</span>'}
+                `;
+
+                if (item) {
+                    caseCalendrier.onclick = () => ouvrirModale(jour);
+                } else {
+                    caseCalendrier.onclick = () => alert("Cette idée arrive très vite ! ✨");
+                }
+                grille.appendChild(caseCalendrier);
+            }
+        }
+
+        // 3. Gestion de l'affichage de la modale
+        function ouvrirModale(jour) {
+            const item = baseDonneesNovembre[jour];
+            if (!item) return;
+            document.getElementById('modal-day').innerText = `Inspiration du ${jour} Novembre`;
+            document.getElementById('modal-title').innerText = item.titre;
+            document.getElementById('modal-desc').innerText = item.description;
+            document.getElementById('modal-image').innerHTML = `<img src="${item.image}" class="w-full h-full object-cover rounded-xl">`;
+            document.getElementById('modal-link').href = item.lienAmazon;
+            document.getElementById('product-modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').classList.remove('active');
+        }
+
+        // 4. Le secret de Pinterest (?day=X)
+        function detecterLienPinterest() {
+            const parametresUrl = new URLSearchParams(window.location.search);
+            const jourCible = parametresUrl.get('day');
+            if (jourCible && baseDonneesNovembre[jourCible]) {
+                ouvrirModale(parseInt(jourCible));
+            }
+        }
+
+        // Lancement au démarrage de la page
+        window.addEventListener('DOMContentLoaded', chargerAlmanach);
+    </script>
+</body>
+</html>
