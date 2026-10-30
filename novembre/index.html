@@ -3,80 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novembre 2026 - Sept à la Maison</title>
+    <title>Sept à la Maison - Calendrier de Novembre Interactif</title>
     
-    <!-- APPEL DIRECT À VOTRE PROPRE STYLE CSS EXISTANT -->
-    <link rel="stylesheet" href="../octobre/css/style.css"> 
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="description" content="Découvrez nos inspirations quotidiennes, astuces d'organisation et sélections de saison pour la maison.">
+    
+    <meta property="og:title" content="Sept à la Maison - Calendrier de Novembre">
+    <meta property="og:description" content="Inspirations quotidiennes et astuces d'organisation pour la maison.">
+    <meta property="og:type" content="website">
+
+    <!-- LIAISON VERS VOTRE FEUILLE DE STYLE COMMUNE (Chemin relatif ajusté vers Octobre) -->
+    <link rel="stylesheet" href="../octobre/css/style.css">
     
     <style>
-        /* Styles indispensables pour l'affichage de la fenêtre pop-up */
-        .modal { 
-            display: none; 
-            position: fixed; 
-            inset: 0; 
-            background: rgba(0,0,0,0.6); 
-            z-index: 1000; 
-            align-items: center; 
-            justify-content: center; 
-        }
+        /* Modale pop-up épurée intégrée à votre charte graphique */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
         .modal.active { display: flex; }
-        .modal-content { 
-            background: #ffffff; 
-            padding: 30px; 
-            border-radius: 12px; 
-            max-width: 450px; 
-            width: 100%; 
-            position: relative; 
-            box-sizing: border-box;
-        }
-        
-        /* Forçage d'une grille propre sans framework externe */
-        .grid-novembre {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 15px;
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
+        .modal-content { background: #ffffff; padding: 30px; border-radius: 12px; max-width: 450px; width: 90%; position: relative; box-sizing: border-box; border: 1px solid #EAE6DF; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Sept à la maison</h1>
-        <nav>
-            <a href="../ressources.html">Ressources</a>
-            <a href="../boutique.html">Boutique</a>
+    <!-- Entête du site identique -->
+    <header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; margin-bottom: 20px; border-bottom: 1px solid #EAE6DF;">
+        <h1 style="margin: 0; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; color: #4A1521;">Sept à la maison</h1>
+        <nav style="display: flex; gap: 20px;">
+            <a href="./../" style="color: #3E3B35; text-decoration: none; font-weight: 500;">Accueil</a>
+            <a href="../ressources.html" style="color: #3E3B35; text-decoration: none; font-weight: 500;">Ressources</a>
+            <a href="../boutique.html" style="color: #3E3B35; text-decoration: none; font-weight: 500;">Boutique</a>
         </nav>
     </header>
 
-    <div class="hero">
-        <h2>Novembre à la Maison</h2>
-        <p class="tagline">30 jours, 30 inspirations. Cliquez sur une case pour découvrir notre sélection quotidienne.</p>
+    <!-- Zone du Titre Principal -->
+    <div style="max-width: 1400px; margin: 30px auto 15px auto; padding: 0 10px;">
+        <h2 style="font-size: 2.2rem; font-weight: 800; color: #4A1521; margin: 0; font-family: sans-serif;">Novembre 2026</h2>
     </div>
 
-    <!-- Conteneur qui utilise notre structure de grille -->
-    <main class="grid-novembre" id="calendar-grid">
-        <!-- Injecté dynamiquement par le JavaScript -->
+    <!-- Disposition Globale Miroir -->
+    <main class="main-layout">
+        
+        <!-- Bloc du Calendrier -->
+        <section class="calendar-wrapper">
+            <div class="calendar-container" id="calendar-grid">
+                
+                <!-- LIGNE DES EN-TÊTES DE JOURS PRÉSERVÉE -->
+                <div class="cell-day">Lundi</div>
+                <div class="cell-day">Mardi</div>
+                <div class="cell-day">Mercredi</div>
+                <div class="cell-day">Jeudi</div>
+                <div class="cell-day">Vendredi</div>
+                <div class="cell-day-we">Samedi</div>
+                <div class="cell-day-we">Dimanche</div>
+                
+                <!-- Les cases des 30 jours de Novembre vont s'injecter juste en dessous via le script -->
+            </div>
+        </section>
+
+        <!-- Barre Latérale Adaptée pour Novembre -->
+        <aside class="sidebar-notes">
+            <div style="background: #ffffff; border: 1px solid #EAE6DF; border-radius: 12px; padding: 25px;">
+                <h3 style="color: #4A1521; font-size: 1.2rem; text-transform: uppercase; margin-top: 0; margin-bottom: 5px;">Le Conseil du Mois</h3>
+                <div style="height: 2px; width: 40px; background: #D69FA3; margin-bottom: 15px;"></div>
+                <p style="font-size: 0.9rem; line-height: 1.6; color: #6E6A62; margin-bottom: 10px;"><strong>Apportez de la lumière douce :</strong></p>
+                <p style="font-size: 0.85rem; line-height: 1.6; color: #6E6A62;">En novembre, les journées raccourcissent drastiquement. Multipliez les sources lumineuses indirectes et tamisées plutôt qu'un plafonnier central pour réchauffer instantanément l'atmosphère. 🕯️</p>
+            </div>
+        </aside>
+
     </main>
 
-    <!-- Fenêtre Modale (Pop-up) aux couleurs de votre charte graphique -->
+    <!-- Fenêtre Pop-up (Modale) invisible au départ -->
     <div id="product-modal" class="modal">
         <div class="modal-content">
-            <button onclick="closeModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--text-color);">&times;</button>
+            <button onclick="closeModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:1.5rem; cursor:pointer; color:#3E3B35;">&times;</button>
             <div id="modal-image" style="width:100%; aspect-ratio:1; background:#f5f5f5; border-radius:8px; overflow:hidden; margin-bottom:15px;"></div>
             <span id="modal-day" style="font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:#7A756C; display:block; margin-bottom:5px;"></span>
-            <h3 id="modal-title" style="margin-top:0; text-transform:uppercase; font-size:1.2rem; letter-spacing:1px;"></h3>
-            <p id="modal-desc" style="color:#7A756C; font-size:0.95rem; line-height:1.5; margin-bottom:20px;"></p>
-            <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer nofollow" class="main-btn" style="display:block; text-align:center; text-decoration:none;">Vérifier le prix sur Amazon →</a>
+            <h3 id="modal-title" style="margin-top:0; color:#4A1521; font-size:1.2rem; letter-spacing:0.5px;"></h3>
+            <p id="modal-desc" style="color:#6E6A62; font-size:0.9rem; line-height:1.5; margin-bottom:20px;"></p>
+            <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer nofollow" class="main-btn" style="display:block; text-align:center; text-decoration:none; background:#3E3B35; color:#fff; padding:12px; border-radius:25px; font-weight:600;">Vérifier sur Amazon →</a>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 septalamaison.fr. En tant que Partenaire Amazon, ce site réalise un bénéfice sur les achats remplissant les conditions requises.</p>
-    </footer>
+    <noscript>
+        <section style="max-width: 1400px; margin: 40px auto; padding: 20px;">
+            <h2>Inspirations Cocooning et Aménagement d'Hiver</h2>
+            <p>Découvrez chaque jour nos sélections d'objets pour préparer votre intérieur aux températures d'hiver : éclairages tamisés, confort thermique et organisation.</p>
+        </section>
+    </noscript>
 
+    <!-- Script logique de chargement JSON et deep-linking Pinterest -->
     <script>
         let baseDonneesNovembre = {};
 
@@ -89,69 +103,38 @@
                     baseDonneesNovembre[item.jour] = item;
                 });
 
-                       function construireGrille() {
-            const grille = document.getElementById('calendar-grid');
-            grille.innerHTML = ''; 
-            const totalJour = 30;
-
-            for (let jour = 1; jour <= totalJour; jour++) {
-                const item = baseDonneesNovembre[jour];
-                const caseCalendrier = document.createElement('div');
-                
-                // 1. On applique STRICTEMENT vos classes de cartes d'Octobre
-                caseCalendrier.className = "month-card calendar-case"; 
-                caseCalendrier.style.cursor = "pointer";
-                
-                // 2. On injecte la structure HTML exacte d'Octobre pour le rendu visuel
-                caseCalendrier.innerHTML = `
-                    <div class="card-header" style="font-size: 0.8rem; color: #7A756C; text-transform: uppercase; letter-spacing: 1px;">Jour</div>
-                    <div class="card-body" style="font-size: 2.2rem; font-weight: 300; margin: 10px 0; color: var(--text-color);">${jour}</div>
-                    <div class="card-footer" style="margin-top: 5px;">
-                        ${item ? '<span class="main-btn" style="font-size: 0.75rem; padding: 5px 12px; display: inline-block; border-radius: 15px;">Ouvrir</span>' : '<span style="font-size: 0.75rem; color: #7A756C; opacity: 0.5;">🔒 Bientôt</span>'}
-                    </div>
-                `;
-
-                if (item) {
-                    caseCalendrier.onclick = () => ouvrirModale(jour);
-                } else {
-                    caseCalendrier.onclick = () => alert("Cette inspiration arrive très vite ! ✨");
-                }
-                grille.appendChild(caseCalendrier);
-            }
-        }
-
+                construireGrille();
                 detecterLienPinterest();
             } catch (erreur) {
-                console.error("Erreur de chargement du JSON :", erreur);
+                console.error("Erreur de lecture du JSON de Novembre :", erreur);
                 construireGrille();
             }
         }
 
         function construireGrille() {
             const grille = document.getElementById('calendar-grid');
-            grille.innerHTML = ''; 
-            const totalJour = 30;
+            const totalJour = 30; // Novembre = 30 jours
 
             for (let jour = 1; jour <= totalJour; jour++) {
                 const item = baseDonneesNovembre[jour];
                 const caseCalendrier = document.createElement('div');
                 
-                // Emprunt direct de votre style de carte pour la cohérence graphique
+                // Utilisation de votre classe exacte d'Octobre pour le style de la case
                 caseCalendrier.className = "month-card"; 
                 caseCalendrier.style.cursor = "pointer";
-                caseCalendrier.style.textAlign = "center";
-                caseCalendrier.style.padding = "20px";
                 
                 caseCalendrier.innerHTML = `
-                    <div style="font-size: 0.8rem; color: #7A756C; text-transform: uppercase; letter-spacing: 1px;">Jour</div>
-                    <div style="font-size: 2rem; font-weight: 300; margin: 5px 0;">${jour}</div>
-                    ${item ? '<span style="font-size: 0.75rem; color: #ffffff; background: var(--accent-color); padding: 3px 8px; border-radius: 12px; font-weight: 600;">Ouvrir</span>' : '<span style="font-size: 0.75rem; color: #7A756C;">Bientôt</span>'}
+                    <div style="font-size: 0.75rem; color: #7A756C; text-transform: uppercase;">Jour</div>
+                    <div style="font-size: 1.8rem; font-weight: 300; margin: 5px 0; color: #3E3B35;">${jour}</div>
+                    <div style="margin-top: 5px;">
+                        ${item ? '<span style="font-size: 0.7rem; color: #ffffff; background: #A39274; padding: 2px 8px; border-radius: 10px; font-weight: 600;">Ouvrir</span>' : '<span style="font-size: 0.7rem; color: #7A756C; opacity: 0.5;">🔒 Bientôt</span>'}
+                    </div>
                 `;
 
                 if (item) {
                     caseCalendrier.onclick = () => ouvrirModale(jour);
                 } else {
-                    caseCalendrier.onclick = () => alert("Cette inspiration arrive très vite ! ✨");
+                    caseCalendrier.onclick = () => alert("Cette inspiration chaleureuse arrive très bientôt ! ✨");
                 }
                 grille.appendChild(caseCalendrier);
             }
