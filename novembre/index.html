@@ -89,7 +89,37 @@
                     baseDonneesNovembre[item.jour] = item;
                 });
 
-                construireGrille();
+                       function construireGrille() {
+            const grille = document.getElementById('calendar-grid');
+            grille.innerHTML = ''; 
+            const totalJour = 30;
+
+            for (let jour = 1; jour <= totalJour; jour++) {
+                const item = baseDonneesNovembre[jour];
+                const caseCalendrier = document.createElement('div');
+                
+                // 1. On applique STRICTEMENT vos classes de cartes d'Octobre
+                caseCalendrier.className = "month-card calendar-case"; 
+                caseCalendrier.style.cursor = "pointer";
+                
+                // 2. On injecte la structure HTML exacte d'Octobre pour le rendu visuel
+                caseCalendrier.innerHTML = `
+                    <div class="card-header" style="font-size: 0.8rem; color: #7A756C; text-transform: uppercase; letter-spacing: 1px;">Jour</div>
+                    <div class="card-body" style="font-size: 2.2rem; font-weight: 300; margin: 10px 0; color: var(--text-color);">${jour}</div>
+                    <div class="card-footer" style="margin-top: 5px;">
+                        ${item ? '<span class="main-btn" style="font-size: 0.75rem; padding: 5px 12px; display: inline-block; border-radius: 15px;">Ouvrir</span>' : '<span style="font-size: 0.75rem; color: #7A756C; opacity: 0.5;">🔒 Bientôt</span>'}
+                    </div>
+                `;
+
+                if (item) {
+                    caseCalendrier.onclick = () => ouvrirModale(jour);
+                } else {
+                    caseCalendrier.onclick = () => alert("Cette inspiration arrive très vite ! ✨");
+                }
+                grille.appendChild(caseCalendrier);
+            }
+        }
+
                 detecterLienPinterest();
             } catch (erreur) {
                 console.error("Erreur de chargement du JSON :", erreur);
