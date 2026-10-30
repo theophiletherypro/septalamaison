@@ -12,41 +12,41 @@
     <meta property="og:description" content="Inspirations quotidiennes et astuces d'organisation pour la maison.">
     <meta property="og:type" content="website">
 
-    <!-- LIAISON VERS VOTRE FEUILLE DE STYLE COMMUNE (Chemin relatif ajusté vers Octobre) -->
+    <!-- Liaison vers votre feuille de style existante d'Octobre -->
     <link rel="stylesheet" href="../octobre/css/style.css">
     
     <style>
-        /* Modale pop-up épurée intégrée à votre charte graphique */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
+        /* Fenêtre Modale alignée sur votre charte graphique */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(64, 21, 33, 0.4); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
         .modal.active { display: flex; }
-        .modal-content { background: #ffffff; padding: 30px; border-radius: 12px; max-width: 450px; width: 90%; position: relative; box-sizing: border-box; border: 1px solid #EAE6DF; }
+        .modal-content { background: var(--bg-creme); padding: 30px; border-radius: 12px; max-width: 450px; width: 90%; position: relative; box-sizing: border-box; border: 1px solid var(--border-color); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .modal-btn { display: inline-block; background-color: var(--swello-semaine); color: #ffffff; text-decoration: none; padding: 12px 24px; font-size: 1rem; border-radius: 30px; letter-spacing: 1px; font-weight: 600; text-align: center; width: 100%; transition: background-color 0.2s; margin-top: 15px; border: none; cursor: pointer; }
+        .modal-btn:hover { background-color: var(--accent-color); }
+        .day-number { position: absolute; top: 10px; left: 10px; font-size: 1.1rem; font-weight: 700; color: var(--text-color); }
     </style>
 </head>
 <body>
 
-    <!-- Entête du site identique -->
-    <header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; margin-bottom: 20px; border-bottom: 1px solid #EAE6DF;">
-        <h1 style="margin: 0; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; color: #4A1521;">Sept à la maison</h1>
+    <!-- Entête du site strict miroir -->
+    <header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); background-color: #ffffff; margin:-20px -20px 20px -20px; padding: 15px 20px;">
+        <h1 style="margin: 0; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; color: var(--swello-semaine);">Sept à la maison</h1>
         <nav style="display: flex; gap: 20px;">
-            <a href="./../" style="color: #3E3B35; text-decoration: none; font-weight: 500;">Accueil</a>
-            <a href="../ressources.html" style="color: #3E3B35; text-decoration: none; font-weight: 500;">Ressources</a>
-            <a href="../boutique.html" style="color: #3E3B35; text-decoration: none; font-weight: 500;">Boutique</a>
+            <a href="./../" style="color: var(--text-color); text-decoration: none; font-weight: 500;">Accueil</a>
+            <a href="../ressources.html" style="color: var(--text-color); text-decoration: none; font-weight: 500;">Ressources</a>
+            <a href="../boutique.html" style="color: var(--text-color); text-decoration: none; font-weight: 500;">Boutique</a>
         </nav>
     </header>
 
-    <!-- Zone du Titre Principal -->
+    <!-- Titre Principal -->
     <div style="max-width: 1400px; margin: 30px auto 15px auto; padding: 0 10px;">
-        <h2 style="font-size: 2.2rem; font-weight: 800; color: #4A1521; margin: 0; font-family: sans-serif;">Novembre 2026</h2>
+        <h2 style="font-size: 2.2rem; font-weight: 800; color: var(--swello-semaine); margin: 0; font-family: sans-serif;">Novembre 2026</h2>
     </div>
 
-    <!-- Disposition Globale Miroir -->
+    <!-- Structure bi-colonne Swello -->
     <main class="main-layout">
-        
-        <!-- Bloc du Calendrier -->
         <section class="calendar-wrapper">
             <div class="calendar-container" id="calendar-grid">
-                
-                <!-- LIGNE DES EN-TÊTES DE JOURS PRÉSERVÉE -->
+                <!-- EN-TÊTES DE JOURS FIXES -->
                 <div class="cell-day">Lundi</div>
                 <div class="cell-day">Mardi</div>
                 <div class="cell-day">Mercredi</div>
@@ -54,116 +54,33 @@
                 <div class="cell-day">Vendredi</div>
                 <div class="cell-day-we">Samedi</div>
                 <div class="cell-day-we">Dimanche</div>
-                
-                <!-- Les cases des 30 jours de Novembre vont s'injecter juste en dessous via le script -->
+                <!-- Injecté par le JS -->
             </div>
         </section>
 
-        <!-- Barre Latérale Adaptée pour Novembre -->
         <aside class="sidebar-notes">
-            <div style="background: #ffffff; border: 1px solid #EAE6DF; border-radius: 12px; padding: 25px;">
-                <h3 style="color: #4A1521; font-size: 1.2rem; text-transform: uppercase; margin-top: 0; margin-bottom: 5px;">Le Conseil du Mois</h3>
-                <div style="height: 2px; width: 40px; background: #D69FA3; margin-bottom: 15px;"></div>
-                <p style="font-size: 0.9rem; line-height: 1.6; color: #6E6A62; margin-bottom: 10px;"><strong>Apportez de la lumière douce :</strong></p>
-                <p style="font-size: 0.85rem; line-height: 1.6; color: #6E6A62;">En novembre, les journées raccourcissent drastiquement. Multipliez les sources lumineuses indirectes et tamisées plutôt qu'un plafonnier central pour réchauffer instantanément l'atmosphère. 🕯️</p>
+            <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 12px; padding: 25px;">
+                <h3 style="color: var(--swello-semaine); font-size: 1.2rem; text-transform: uppercase; margin-top: 0; margin-bottom: 5px;">Le Conseil du Mois</h3>
+                <div style="height: 2px; width: 40px; background: var(--swello-weekend); margin-bottom: 15px;"></div>
+                <p style="font-size: 0.9rem; line-height: 1.6; color: #6E6A62; margin-bottom: 10px;"><strong>Réchauffez l'atmosphère :</strong></p>
+                <p style="font-size: 0.85rem; line-height: 1.6; color: #6E6A62;">En novembre, l'éclairage indirect devient la clé d'un intérieur chaleureux. Multipliez les bougies et lampes tamisées nomades pour transformer votre salon en un refuge réconfortant. 🕯️</p>
             </div>
         </aside>
-
     </main>
 
-    <!-- Fenêtre Pop-up (Modale) invisible au départ -->
+    <!-- Fenêtre Modale de Conversion -->
     <div id="product-modal" class="modal">
         <div class="modal-content">
-            <button onclick="closeModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:1.5rem; cursor:pointer; color:#3E3B35;">&times;</button>
-            <div id="modal-image" style="width:100%; aspect-ratio:1; background:#f5f5f5; border-radius:8px; overflow:hidden; margin-bottom:15px;"></div>
-            <span id="modal-day" style="font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:#7A756C; display:block; margin-bottom:5px;"></span>
-            <h3 id="modal-title" style="margin-top:0; color:#4A1521; font-size:1.2rem; letter-spacing:0.5px;"></h3>
-            <p id="modal-desc" style="color:#6E6A62; font-size:0.9rem; line-height:1.5; margin-bottom:20px;"></p>
-            <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer nofollow" class="main-btn" style="display:block; text-align:center; text-decoration:none; background:#3E3B35; color:#fff; padding:12px; border-radius:25px; font-weight:600;">Vérifier sur Amazon →</a>
+            <button onclick="closeModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--text-color); font-weight:bold;">&times;</button>
+            <div id="modal-image" style="width:100%; aspect-ratio:1.15; background:#ffffff; border:1px solid var(--border-color); border-radius:8px; overflow:hidden; margin-bottom:15px;"></div>
+            <span id="modal-day" style="font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:var(--accent-color); display:block; margin-bottom:5px; font-weight:700;"></span>
+            <h3 id="modal-title" style="margin-top:0; color:var(--swello-semaine); font-size:1.3rem; letter-spacing:0.5px; font-weight:700;"></h3>
+            <p id="modal-desc" style="color:#6E6A62; font-size:0.9rem; line-height:1.6; margin-top:10px;"></p>
+            <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer nofollow" class="modal-btn">Vérifier le prix sur Amazon →</a>
         </div>
     </div>
 
-    <noscript>
-        <section style="max-width: 1400px; margin: 40px auto; padding: 20px;">
-            <h2>Inspirations Cocooning et Aménagement d'Hiver</h2>
-            <p>Découvrez chaque jour nos sélections d'objets pour préparer votre intérieur aux températures d'hiver : éclairages tamisés, confort thermique et organisation.</p>
-        </section>
-    </noscript>
-
-    <!-- Script logique de chargement JSON et deep-linking Pinterest -->
-    <script>
-        let baseDonneesNovembre = {};
-
-        async function chargerAlmanach() {
-            try {
-                const reponse = await fetch('./data/novembre.json');
-                const donnees = await reponse.json();
-                
-                donnees.forEach(item => {
-                    baseDonneesNovembre[item.jour] = item;
-                });
-
-                construireGrille();
-                detecterLienPinterest();
-            } catch (erreur) {
-                console.error("Erreur de lecture du JSON de Novembre :", erreur);
-                construireGrille();
-            }
-        }
-
-        function construireGrille() {
-            const grille = document.getElementById('calendar-grid');
-            const totalJour = 30; // Novembre = 30 jours
-
-            for (let jour = 1; jour <= totalJour; jour++) {
-                const item = baseDonneesNovembre[jour];
-                const caseCalendrier = document.createElement('div');
-                
-                // Utilisation de votre classe exacte d'Octobre pour le style de la case
-                caseCalendrier.className = "month-card"; 
-                caseCalendrier.style.cursor = "pointer";
-                
-                caseCalendrier.innerHTML = `
-                    <div style="font-size: 0.75rem; color: #7A756C; text-transform: uppercase;">Jour</div>
-                    <div style="font-size: 1.8rem; font-weight: 300; margin: 5px 0; color: #3E3B35;">${jour}</div>
-                    <div style="margin-top: 5px;">
-                        ${item ? '<span style="font-size: 0.7rem; color: #ffffff; background: #A39274; padding: 2px 8px; border-radius: 10px; font-weight: 600;">Ouvrir</span>' : '<span style="font-size: 0.7rem; color: #7A756C; opacity: 0.5;">🔒 Bientôt</span>'}
-                    </div>
-                `;
-
-                if (item) {
-                    caseCalendrier.onclick = () => ouvrirModale(jour);
-                } else {
-                    caseCalendrier.onclick = () => alert("Cette inspiration chaleureuse arrive très bientôt ! ✨");
-                }
-                grille.appendChild(caseCalendrier);
-            }
-        }
-
-        function ouvrirModale(jour) {
-            const item = baseDonneesNovembre[jour];
-            if (!item) return;
-            document.getElementById('modal-day').innerText = `Idée du ${jour} Novembre`;
-            document.getElementById('modal-title').innerText = item.titre;
-            document.getElementById('modal-desc').innerText = item.description;
-            document.getElementById('modal-image').innerHTML = `<img src="${item.image}" style="width:100%; height:100%; object-fit:cover;">`;
-            document.getElementById('modal-link').href = item.lienAmazon;
-            document.getElementById('product-modal').classList.add('active');
-        }
-
-        function closeModal() {
-            document.getElementById('product-modal').classList.remove('active');
-        }
-
-        function detecterLienPinterest() {
-            const parametresUrl = new URLSearchParams(window.location.search);
-            const jourCible = parametresUrl.get('day');
-            if (jourCible && baseDonneesNovembre[jourCible]) {
-                ouvrirModale(parseInt(jourCible));
-            }
-        }
-
-        window.addEventListener('DOMContentLoaded', chargerAlmanach);
-    </script>
+    <!-- Liaison vers le script isolé de Novembre -->
+    <script src="js/app.js"></script>
 </body>
 </html>
