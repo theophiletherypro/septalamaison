@@ -62,25 +62,25 @@
     line-height: 1.2;
 }
 
-/* --- LOGIQUE DES IMAGES PAR SEMAINE (Novembre 2026 débute un Dimanche) --- */
+/* --- LOGIQUE DES IMAGES PAR SEMAINE (Ordre de base linéaire) --- */
 
-/* Semaine 1 (Jours 1 à 7) - Commence par 11-11 (Impair) */
+/* Semaine 1 (Jours 1 à 7) */
 .calendar-case[data-day="1"], .calendar-case[data-day="3"], .calendar-case[data-day="5"], .calendar-case[data-day="7"] { background-image: url('../img/11-11.webp'); }
 .calendar-case[data-day="2"], .calendar-case[data-day="4"], .calendar-case[data-day="6"] { background-image: url('../img/11-12.webp'); }
 
-/* Semaine 2 (Jours 8 à 14) - INVERSÉE : Le jour 8 commence bien par 11-22 (Pair) */
-.calendar-case[data-day="8"], .calendar-case[data-day="10"], .calendar-case[data-day="12"], .calendar-case[data-day="14"] { background-image: url('../img/11-22.webp'); }
-.calendar-case[data-day="9"], .calendar-case[data-day="11"], .calendar-case[data-day="13"] { background-image: url('../img/11-21.webp'); }
+/* Semaine 2 (Jours 8 à 14) */
+.calendar-case[data-day="8"], .calendar-case[data-day="10"], .calendar-case[data-day="12"], .calendar-case[data-day="14"] { background-image: url('../img/11-21.webp'); }
+.calendar-case[data-day="9"], .calendar-case[data-day="11"], .calendar-case[data-day="13"] { background-image: url('../img/11-22.webp'); }
 
-/* Semaine 3 (Jours 15 à 21) - Commence par 11-31 (Impair) */
+/* Semaine 3 (Jours 15 à 21) */
 .calendar-case[data-day="15"], .calendar-case[data-day="17"], .calendar-case[data-day="19"], .calendar-case[data-day="21"] { background-image: url('../img/11-31.webp'); }
 .calendar-case[data-day="16"], .calendar-case[data-day="18"], .calendar-case[data-day="20"] { background-image: url('../img/11-32.webp'); }
 
-/* Semaine 4 (Jours 22 à 28) - INVERSÉE : Le jour 22 commence bien par 11-42 (Pair) */
-.calendar-case[data-day="22"], .calendar-case[data-day="24"], .calendar-case[data-day="26"], .calendar-case[data-day="28"] { background-image: url('../img/11-42.webp'); }
-.calendar-case[data-day="23"], .calendar-case[data-day="25"], .calendar-case[data-day="27"] { background-image: url('../img/11-41.webp'); }
+/* Semaine 4 (Jours 22 à 28) */
+.calendar-case[data-day="22"], .calendar-case[data-day="24"], .calendar-case[data-day="26"], .calendar-case[data-day="28"] { background-image: url('../img/11-41.webp'); }
+.calendar-case[data-day="23"], .calendar-case[data-day="25"], .calendar-case[data-day="27"] { background-image: url('../img/11-42.webp'); }
 
-/* Semaine 5 (Jours 29 à 30) - Commence par 11-51 (Impair) */
+/* Semaine 5 (Jours 29 à 30) */
 .calendar-case[data-day="29"] { background-image: url('../img/11-51.webp'); }
 .calendar-case[data-day="30"] { background-image: url('../img/11-52.webp'); }
 
