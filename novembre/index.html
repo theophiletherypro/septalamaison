@@ -16,16 +16,34 @@
     <link rel="stylesheet" href="../octobre/css/style.css">
     <!-- Liaison vers les styles spécifiques de Novembre (ajouts de la grille) -->
     <link rel="stylesheet" href="css/style-novembre.css">
+
+    <style>
+        /* Gestion dynamique de la liste déroulante Almanach */
+        .dropdown-almanach { position: relative; display: inline-block; }
+        .dropdown-almanach:hover .dropdown-content { display: block !important; }
+        .dropdown-content a:hover { background-color: #f5f5f5; color: var(--swello-semaine) !important; }
+    </style>
 </head>
 <body>
 
-    <!-- Entête du site strict miroir -->
-    <header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); background-color: #ffffff; margin:-20px -20px 20px -20px; padding: 15px 20px;">
+    <!-- Entête du site avec Menu Déroulant Almanach -->
+    <header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); background-color: #ffffff; margin:-20px -20px 20px -20px; font-family: sans-serif;">
         <h1 style="margin: 0; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; color: var(--swello-semaine);">Sept à la maison</h1>
-        <nav style="display: flex; gap: 20px;">
+        <nav style="display: flex; gap: 20px; align-items: center;">
             <a href="./../" style="color: var(--text-color); text-decoration: none; font-weight: 500;">Accueil</a>
             <a href="../ressources.html" style="color: var(--text-color); text-decoration: none; font-weight: 500;">Ressources</a>
             <a href="../boutique.html" style="color: var(--text-color); text-decoration: none; font-weight: 500;">Boutique</a>
+            
+            <!-- ONGLET ALMANACH DÉROULANT -->
+            <div class="dropdown-almanach">
+                <button style="background: none; border: none; color: var(--text-color); font-weight: 500; font-size: 1rem; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 4px;">
+                    Almanach <span style="font-size: 0.7rem;">▼</span>
+                </button>
+                <div class="dropdown-content" style="display: none; position: absolute; right: 0; background-color: #ffffff; min-width: 140px; box-shadow: 0px 8px 16px rgba(0,0,0,0.1); border: 1px solid var(--border-color); border-radius: 6px; z-index: 100; margin-top: 8px;">
+                    <a href="../octobre/" style="color: var(--text-color); padding: 10px 15px; text-decoration: none; display: block; font-size: 0.9rem; border-bottom: 1px solid var(--border-color);">Octobre 2026</a>
+                    <a href="./" style="color: var(--swello-semaine); padding: 10px 15px; text-decoration: none; display: block; font-size: 0.9rem; font-weight: bold; background-color: #f9f9f9;">Novembre 2026</a>
+                </div>
+            </div>
         </nav>
     </header>
 
@@ -38,12 +56,12 @@
     <main class="main-layout">
         <section class="calendar-wrapper">
             <div class="calendar-grid" id="calendar-grid">
-                <!-- Les en-têtes de jours et les 30 cases seront générés proprement par le script JS -->
+                <!-- Les en-têtes de jours et les 30 cases sont générés par le script JS -->
             </div>
         </section>
 
         <aside class="sidebar-notes">
-            <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 12px; padding: 25px;">
+            <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; font-family: sans-serif;">
                 <h3 style="color: var(--swello-semaine); font-size: 1.2rem; text-transform: uppercase; margin-top: 0; margin-bottom: 5px;">Le Conseil du Mois</h3>
                 <div style="height: 2px; width: 40px; background: var(--swello-weekend); margin-bottom: 15px;"></div>
                 <p style="font-size: 0.9rem; line-height: 1.6; color: #6E6A62; margin-bottom: 10px;"><strong>Réchauffez l'atmosphère :</strong></p>
@@ -52,7 +70,7 @@
         </aside>
     </main>
 
-    <!-- LA LIGNE CORRECTRICE CI-DESSOUS RENOUVELLE LA LIAISON JAVASCRIPT -->
+    <!-- Liaison vers le script de Novembre -->
     <script src="js/app.js"></script>
 </body>
 </html>
