@@ -69,16 +69,16 @@
 .calendar-case[data-day="2"], .calendar-case[data-day="4"], .calendar-case[data-day="6"] { background-image: url('../img/11-12.webp'); }
 
 /* Semaine 2 (Jours 8 à 14) */
-.calendar-case[data-day="8"], .calendar-case[data-day="10"], .calendar-case[data-day="12"], .calendar-case[data-day="14"] { background-image: url('../img/11-21.webp'); }
-.calendar-case[data-day="9"], .calendar-case[data-day="11"], .calendar-case[data-day="13"] { background-image: url('../img/11-22.webp'); }
+.calendar-case[data-day="8"], .calendar-case[data-day="10"], .calendar-case[data-day="12"], .calendar-case[data-day="14"] { background-image: url('../img/11-22.webp'); }
+.calendar-case[data-day="9"], .calendar-case[data-day="11"], .calendar-case[data-day="13"] { background-image: url('../img/11-21.webp'); }
 
 /* Semaine 3 (Jours 15 à 21) */
 .calendar-case[data-day="15"], .calendar-case[data-day="17"], .calendar-case[data-day="19"], .calendar-case[data-day="21"] { background-image: url('../img/11-31.webp'); }
 .calendar-case[data-day="16"], .calendar-case[data-day="18"], .calendar-case[data-day="20"] { background-image: url('../img/11-32.webp'); }
 
 /* Semaine 4 (Jours 22 à 28) */
-.calendar-case[data-day="22"], .calendar-case[data-day="24"], .calendar-case[data-day="26"], .calendar-case[data-day="28"] { background-image: url('../img/11-41.webp'); }
-.calendar-case[data-day="23"], .calendar-case[data-day="25"], .calendar-case[data-day="27"] { background-image: url('../img/11-42.webp'); }
+.calendar-case[data-day="22"], .calendar-case[data-day="24"], .calendar-case[data-day="26"], .calendar-case[data-day="28"] { background-image: url('../img/11-42.webp'); }
+.calendar-case[data-day="23"], .calendar-case[data-day="25"], .calendar-case[data-day="27"] { background-image: url('../img/11-41.webp'); }
 
 /* Semaine 5 (Jours 29 à 30) */
 .calendar-case[data-day="29"] { background-image: url('../img/11-51.webp'); }
