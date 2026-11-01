@@ -1,0 +1,115 @@
+/* Définition de la grille avec cases carrées adaptatives */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 colonnes pour les jours de la semaine */
+    gap: 12px;
+}
+
+/* Style de base des en-têtes de jours */
+.cell-header-day {
+    font-weight: 600;
+    text-align: center;
+    padding: 10px 0;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+/* Configuration de la case pour l'image et le texte adaptatif */
+.calendar-case {
+    container-type: inline-size;
+    position: relative;
+    aspect-ratio: 1 / 1; /* Force la case à rester strictement carrée */
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+    transition: transform 0.2s ease;
+}
+.calendar-case:hover {
+    transform: scale(1.03);
+}
+
+/* Calque sombre sur l'image pour garantir la lisibilité du texte */
+.case-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.42);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+/* Tailles du texte qui s'adaptent dynamiquement à la case */
+.day-number {
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 28cqw;
+    line-height: 1;
+}
+.day-keyword {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 10cqw;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+}
+
+/* --- LOGIQUE DES IMAGES PAR SEMAINE (Novembre 2026 débute un Dimanche) --- */
+
+/* Semaine 1 (Jours 1 à 7) */
+.calendar-case[data-day="1"], .calendar-case[data-day="3"], .calendar-case[data-day="5"], .calendar-case[data-day="7"] { background-image: url('../img/11-11.webp'); }
+.calendar-case[data-day="2"], .calendar-case[data-day="4"], .calendar-case[data-day="6"] { background-image: url('../img/11-12.webp'); }
+
+/* Semaine 2 (Jours 8 à 14) */
+.calendar-case[data-day="9"], .calendar-case[data-day="11"], .calendar-case[data-day="13"] { background-image: url('../img/11-21.webp'); }
+.calendar-case[data-day="8"], .calendar-case[data-day="10"], .calendar-case[data-day="12"], .calendar-case[data-day="14"] { background-image: url('../img/11-22.webp'); }
+
+/* Semaine 3 (Jours 15 à 21) */
+.calendar-case[data-day="15"], .calendar-case[data-day="17"], .calendar-case[data-day="19"], .calendar-case[data-day="21"] { background-image: url('../img/11-31.webp'); }
+.calendar-case[data-day="16"], .calendar-case[data-day="18"], .calendar-case[data-day="20"] { background-image: url('../img/11-32.webp'); }
+
+/* Semaine 4 (Jours 22 à 28) */
+.calendar-case[data-day="23"], .calendar-case[data-day="25"], .calendar-case[data-day="27"] { background-image: url('../img/11-41.webp'); }
+.calendar-case[data-day="22"], .calendar-case[data-day="24"], .calendar-case[data-day="26"], .calendar-case[data-day="28"] { background-image: url('../img/11-42.webp'); }
+
+/* Semaine 5 (Jours 29 à 30) */
+.calendar-case[data-day="29"] { background-image: url('../img/11-51.webp'); }
+.calendar-case[data-day="30"] { background-image: url('../img/11-52.webp'); }
+
+
+/* --- ÉTATS SÉCURITÉ / VERROUILLAGE DES JOURS FUTURS --- */
+.calendar-case.locked {
+    pointer-events: none;
+    filter: grayscale(100%) opacity(0.4);
+}
+.calendar-case.locked .day-keyword {
+    visibility: hidden; /* Masque le nom du produit si le jour n'est pas venu */
+}
+
+/* --- EFFET FLASH ARRIVÉE DE PINTEREST (#jourX) --- */
+@keyframes flashEffect {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.8); }
+    50% { transform: scale(1.06); box-shadow: 0 0 25px 12px rgba(255, 215, 0, 1); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+}
+.highlight-flash {
+    animation: flashEffect 2s ease-in-out 2;
+    z-index: 10;
+    border: 2px solid #ffd700;
+}
+
+/* Adaptabilité mobile pour la grille */
+@media (max-width: 600px) {
+    .calendar-grid {
+        grid-template-columns: repeat(4, 1fr); /* Passe à 4 colonnes sur petit écran pour garder les cases lisibles */
+    }
+    .cell-header-day { display: none; } /* Cache les noms de jours fixes sur mobile */
+}
