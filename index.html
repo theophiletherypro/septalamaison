@@ -10,243 +10,124 @@
             --text-color: #3E3B35;
             --border-color: #EAE6DF;
             --accent-color: #A39274;
+            --swello-semaine: #401521;
         }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-creme); color: var(--text-color); margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--border-color); background-color: #ffffff; }
+        header h1 { margin: 0; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; color: var(--swello-semaine); }
+        header nav { display: flex; gap: 20px; align-items: center; }
+        header nav a { color: var(--text-color); text-decoration: none; font-size: 1rem; font-weight: 500; }
+        
+        .dropdown-almanach { position: relative; display: inline-block; }
+        .dropdown-almanach::after { content: ""; position: absolute; bottom: -15px; left: 0; right: 0; height: 15px; display: block; }
+        .dropdown-almanach:hover .dropdown-content { display: block !important; }
+        .dropdown-content { display: none; position: absolute; left: 0; background-color: #ffffff; min-width: 160px; box-shadow: 0px 8px 16px rgba(0,0,0,0.1); border: 1px solid var(--border-color); border-radius: 6px; z-index: 1000; margin-top: 10px; max-height: 400px; overflow-y: auto; }
+        .dropdown-content a { color: var(--text-color) !important; padding: 10px 15px; text-decoration: none; display: block; font-size: 0.9rem; }
+        .dropdown-content a:hover { background-color: #f5f5f5; color: var(--swello-semaine) !important; }
 
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: var(--bg-creme);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+        .hero { text-align: center; max-width: 800px; margin: 60px auto 40px auto; padding: 0 20px; }
+        .hero h2 { font-size: 3rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; font-weight: 300; color: var(--swello-semaine); }
+        .hero .tagline { font-style: italic; color: #7A756C; font-size: 1.2rem; margin-bottom: 40px; }
+        .main-btn { display: inline-block; background-color: var(--text-color); color: #ffffff; text-decoration: none; padding: 18px 36px; font-size: 1.2rem; border-radius: 30px; letter-spacing: 1px; font-weight: 600; box-shadow: 0 10px 20px rgba(62, 59, 53, 0.15); transition: transform 0.2s, background-color 0.2s; }
+        .main-btn:hover { transform: translateY(-3px); background-color: var(--accent-color); }
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            border-bottom: 1px solid var(--border-color);
-            background-color: #ffffff;
-        }
-        header h1 { margin: 0; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; }
-        header nav a { color: var(--text-color); text-decoration: none; margin-left: 20px; font-size: 0.9rem; }
-        header nav a:hover { text-decoration: underline; }
-
-        .hero {
-            text-align: center;
-            max-width: 800px;
-            margin: 60px auto 40px auto;
-            padding: 0 20px;
-        }
-
-        .hero h2 {
-            font-size: 3rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            font-weight: 300;
-        }
-
-        .hero .tagline {
-            font-style: italic;
-            color: #7A756C;
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-        }
-
-        /* BOUTON DYNAMIQUE MENSUEL */
-        .main-btn {
-            display: inline-block;
-            background-color: var(--text-color);
-            color: #ffffff;
-            text-decoration: none;
-            padding: 18px 36px;
-            font-size: 1.2rem;
-            border-radius: 30px;
-            letter-spacing: 1px;
-            font-weight: 600;
-            box-shadow: 0 10px 20px rgba(62, 59, 53, 0.15);
-            transition: transform 0.2s, background-color 0.2s;
-        }
-        .main-btn:hover {
-            transform: translateY(-3px);
-            background-color: var(--accent-color);
-        }
-
-        /* GRILLE DE PRESENTATION DE L'ECOSYSTEME */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            margin: 40px auto 60px auto;
-            padding: 0 20px;
-        }
-
-        .feature-card {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.2s ease;
-        }
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
-            box-shadow: 0 8px 25px rgba(163, 146, 116, 0.1);
-        }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; max-width: 1200px; margin: 40px auto 60px auto; padding: 0 20px; }
+        .feature-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: 12px; padding: 30px; text-align: center; text-decoration: none; color: inherit; transition: all 0.2s ease; }
+        .feature-card:hover { transform: translateY(-5px); border-color: var(--accent-color); box-shadow: 0 8px 25px rgba(163, 146, 116, 0.1); }
         .feature-card .icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
         .feature-card h3 { margin: 0 0 10px 0; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px; }
         .feature-card p { margin: 0; color: #7A756C; font-size: 0.95rem; line-height: 1.5; }
 
-        /* SECTON RECYCLAGE / ARCHIVES */
-        .archive-section {
-            background-color: #ffffff;
-            border-top: 1px solid var(--border-color);
-            padding: 50px 20px;
-            text-align: center;
-        }
+        .archive-section { background-color: #ffffff; border-top: 1px solid var(--border-color); padding: 50px 20px; text-align: center; }
         .archive-section h3 { text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px; margin-bottom: 30px; color: #7A756C; }
-       .months-grid {
-    display: grid;
-    /* Force exactement 3 colonnes de taille égale */
-    grid-template-columns: repeat(3, 1fr); 
-    /* Force exactement 4 lignes de taille égale */
-    grid-template-rows: repeat(4, 1fr); 
-    gap: 15px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
+        .months-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; max-width: 1200px; margin: 0 auto; }
+        .month-card { container-type: inline-size; position: relative; aspect-ratio: 1 / 1; background-size: cover; background-position: center; border-radius: 10px; overflow: hidden; text-decoration: none; color: #ffffff; display: block; transition: transform 0.2s ease; background-color: #e2ded7; }
+        .month-card:hover { transform: scale(1.03); }
+        .month-overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.38); display: flex; justify-content: center; align-items: center; padding: 10px; box-sizing: border-box; }
+        .month-name { font-weight: 700; font-size: 14cqw; text-transform: uppercase; letter-spacing: 0.05em; }
 
-/* Optimisation pour que la grille reste lisible sur téléphone mobile */
-@media (max-width: 600px) {
-    .months-grid {
-        /* Passe en 2 colonnes sur mobile pour éviter que ce soit trop serré */
-        grid-template-columns: repeat(2, 1fr); 
-        grid-template-rows: auto;
-    }
-}
+        .month-card.m-janvier { background-image: url('img/mois-janvier.webp'); }
+        .month-card.m-fevrier { background-image: url('img/mois-fevrier.webp'); }
+        .month-card.m-mars { background-image: url('img/mois-mars.webp'); }
+        .month-card.m-avril { background-image: url('img/mois-avril.webp'); }
+        .month-card.m-mai { background-image: url('img/mois-mai.webp'); }
+        .month-card.m-juin { background-image: url('img/mois-juin.webp'); }
+        .month-card.m-juillet { background-image: url('img/mois-juillet.webp'); }
+        .month-card.m-aout { background-image: url('img/mois-aout.webp'); }
+        .month-card.m-septembre { background-image: url('img/mois-septembre.webp'); }
+        .month-card.m-octobre { background-image: url('img/mois-octobre.webp'); }
+        .month-card.m-novembre { background-image: url('img/mois-novembre.webp'); }
+        .month-card.m-decembre { background-image: url('img/mois-decembre.webp'); }
 
-        .month-card {
-            background: var(--bg-creme);
-            border: 1px solid var(--border-color);
-            padding: 15px;
-            border-radius: 8px;
-            text-decoration: none;
-            color: inherit;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-        .month-card:hover { border-color: var(--accent-color); background-color: #FFFBF5; }
-
-        footer {
-            text-align: center;
-            padding: 25px;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.85rem;
-            color: #7A756C;
-            background-color: #ffffff;
-            margin-top: auto;
-        }
+        @media (max-width: 800px) { .months-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 500px) { .months-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
     </style>
 </head>
 <body>
-
     <header>
         <h1>Sept à la maison</h1>
         <nav>
+            <a href="./" style="text-decoration: underline;">Accueil</a>
+            <div class="dropdown-almanach" style="padding-bottom: 10px; margin-bottom: -10px;">
+                <button style="background: none; border: none; color: var(--text-color); font-weight: 500; font-size: 1rem; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 4px; font-family: sans-serif;">
+                    Calendriers <span>▼</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="https://septalamaison.fr" style="color: #ffffff !important; font-weight: bold; background-color: var(--swello-semaine);">✨ Novembre 2026</a>
+                    <a href="janvier/">Janvier</a><a href="fevrier/">Février</a><a href="mars/">Mars</a><a href="avril/">Avril</a><a href="mai/">Mai</a><a href="juin/">Juin</a><a href="juillet/">Juillet</a><a href="aout/">Août</a><a href="septembre/">Septembre</a><a href="octobre/">Octobre</a><a href="decembre/">Décembre</a>
+                </div>
+            </div>
             <a href="ressources.html">Ressources</a>
-            <a href="boutique.html">Boutique</a>
         </nav>
     </header>
-
     <div class="hero">
         <h2>Sept à la maison</h2>
         <p class="tagline">Déco, jardin, cuisine, famille & bien-être au fil des saisons</p>
-        
-        <!-- Le JS mettra à jour l'URL vers "octobre/" (sans l'année) et changera le texte -->
-        <a href="#" id="dynamic-month-btn" class="main-btn">Découvrir le calendrier en cours</a>
+        <a href="novembre/" class="main-btn">Découvrir le calendrier en cours</a>
     </div>
-
-    <!-- Accès direct aux autres branches du site -->
     <div class="features-grid">
-        <a href="ressources.html" class="feature-card">
-            <span class="icon">📚</span>
-            <h3>Outils & Bibliothèque</h3>
-            <p>Téléchargez gratuitement nos check-lists pratiques, calendriers de plantations et guides d'organisation.</p>
-        </a>
-
-        <a href="boutique.html" class="feature-card">
-            <span class="icon">🛍️</span>
-            <h3>La Boutique</h3>
-            <p>Retrouvez nos affiches exclusives et créations graphiques sur notre boutique Etsy et Print on Demand.</p>
-        </a>
+        <a href="ressources.html" class="feature-card"><span class="icon">📚</span><h3>Outils & Bibliothèque</h3><p>Téléchargez gratuitement nos check-lists pratiques, calendriers de plantations et guides d'organisation.</p></a>
+        <a href="novembre/" class="feature-card"><span class="icon">📅</span><h3>L'Almanach Mensuel</h3><p>Accédez à notre grille interactive et découvrez chaque jour de nouvelles inspirations sélectionnées pour votre intérieur.</p></a>
     </div>
-
-    <!-- Calendriers pour le recyclage annuel automatique -->
     <div class="archive-section">
         <h3>Explorer les mois de l'année</h3>
         <div class="months-grid">
-            <a href="janvier/" class="month-card">Janvier</a>
-            <a href="fevrier/" class="month-card">Février</a>
-            <a href="mars/" class="month-card">Mars</a>
-            <a href="avril/" class="month-card">Avril</a>
-            <a href="mai/" class="month-card">Mai</a>
-            <a href="juin/" class="month-card">Juin</a>
-            <a href="juillet/" class="month-card">Juillet</a>
-            <a href="aout/" class="month-card">Août</a>
-            <a href="septembre/" class="month-card">Septembre</a>
-            <a href="octobre/" class="month-card">Octobre</a>
-            <a href="novembre/" class="month-card">Novembre</a>
-            <a href="decembre/" class="month-card">Décembre</a>
+            <a href="janvier/" class="month-card m-janvier"><div class="month-overlay"><span class="month-name">Janvier</span></div></a>
+            <a href="fevrier/" class="month-card m-fevrier"><div class="month-overlay"><span class="month-name">Février</span></div></a>
+            <a href="mars/" class="month-card m-mars"><div class="month-overlay"><span class="month-name">Mars</span></div></a>
+            <a href="avril/" class="month-card m-avril"><div class="month-overlay"><span class="month-name">Avril</span></div></a>
+            <a href="mai/" class="month-card m-mai"><div class="month-overlay"><span class="month-name">Mai</span></div></a>
+            <a href="juin/" class="month-card m-juin"><div class="month-overlay"><span class="month-name">Juin</span></div></a>
+            <a href="juillet/" class="month-card m-juillet"><div class="month-overlay"><span class="month-name">Juillet</span></div></a>
+            <a href="aout/" class="month-card m-aout"><div class="month-overlay"><span class="month-name">Août</span></div></a>
+            <a href="septembre/" class="month-card m-septembre"><div class="month-overlay"><span class="month-name">Septembre</span></div></a>
+            <a href="octobre/" class="month-card m-octobre"><div class="month-overlay"><span class="month-name">Octobre</span></div></a>
+            <a href="novembre/" class="month-card m-novembre"><div class="month-overlay"><span class="month-name">Novembre</span></div></a>
+            <a href="decembre/" class="month-card m-decembre"><div class="month-overlay"><span class="month-name">Décembre</span></div></a>
         </div>
     </div>
 
-        <!-- SECTION TEXTUELLE ET MAILLAGE SEO ACCUEIL (Pour donner de la matière à Google) -->
     <div class="seo-section" style="max-width: 800px; margin: 50px auto 20px auto; padding: 30px; background-color: #ffffff; border: 1px solid var(--border-color); border-radius: 12px; font-size: 0.95rem; line-height: 1.6; color: #5A554C; text-align: left;">
         <h3 style="font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-color); margin-top: 0; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Le Mag d’Inspirations pour une Maison Chaleureuse</h3>
-        <p>
-            Bienvenue sur <strong>Sept à la maison</strong>, votre rendez-vous quotidien dédié à l’art de vivre, au fait-maison et à l’harmonie intérieure. Au fil des saisons, notre mission est de vous accompagner pour transformer votre espace de vie en un véritable refuge douillet, tout en cultivant des moments authentiques en famille. À travers nos calendriers mensuels interactifs inspirés de l’esthétique épurée de Pinterest, découvrez chaque jour une idée sélectionnée avec soin pour embellir votre quotidien.
-        </p>
-        <p>
-            Notre univers s'articule autour de thématiques essentielles pour la vie à la maison. Laissez-vous inspirer par nos sélections de <strong>décoration d'intérieur tendance</strong>, où le minimalisme chaleureux, les matières naturelles et le style bohème ou <em>kinfolk</em> sont mis à l'honneur. Côté extérieur, nous vous partageons des conseils pratiques pour <strong>aménager un jardin paysager</strong>, cultiver un potager biologique au rythme de la nature et réussir vos plantations saisonnières.
-        </p>
-        <p>
-            Parce que la maison est le cœur de la vie de famille, nous explorons également des <strong>recettes de cuisine simples et réconfortantes</strong> mettant en valeur les produits de saison, ainsi que des idées de loisirs créatifs et de sorties pour petits et grands. Enfin, nos dossiers dédiés au bien-être au quotidien vous invitent à ralentir (<em>slow living</em>) et à instaurer des rituels cocooning apaisants. Explorez nos calendriers, téléchargez nos ressources gratuites et découvrez le savoir-faire de nos artisans coups de cœur.
-        </p>
+        <p>Bienvenue sur <strong>Sept à la maison</strong>, votre rendez-vous quotidien dédié à l’art de vivre, au fait-maison et à l’harmonie intérieure. Au fil des saisons, notre mission est de vous accompagner pour transformer votre espace de vie en un véritable refuge douillet, tout en cultivant des moments authentiques en famille. À travers nos calendriers mensuels interactifs inspirés de l'esthétique épurée de Pinterest, découvrez chaque jour une idée sélectionnée avec soin pour embellir votre quotidien.</p>
+        <p>Notre univers s'articule autour de thématiques essentielles pour la vie à la maison. Laissez-vous inspirer par nos sélections de <strong>décoration d'intérieur tendance</strong>, où le minimalisme chaleureux, les matières naturelles et le style bohème ou <em>kinfolk</em> sont mis à l'honneur. Côté extérieur, nous vous partageons des conseils pratiques pour <strong>aménager un jardin paysager</strong>, cultiver un potager biologique au rythme de la nature et réussir vos plantations saisonnières.</p>
+        <p>Parce que la maison est le cœur de la vie de famille, nous explorons également des <strong>recettes de cuisine simples et réconfortantes</strong> mettant en valeur les produits de saison, ainsi que des idées de loisirs créatifs et de sorties pour petits et grands. Enfin, nos dossiers dédiés au bien-être au quotidien vous invitent à ralentir (<em>slow living</em>) et à instaurer des rituels cocooning apaisants. Explorez nos calendriers, téléchargez nos ressources gratuites et découvrez le savoir-faire de nos artisans coups de cœur.</p>
     </div>
 
-    <footer>
-        <p>&copy; <span id="current-year"></span> Sept à la maison - Contenu d'idées et inspirations d'affiliation.</p>
+    <footer style="text-align: center; padding: 40px 20px; border-top: 1px solid var(--border-color); background-color: #ffffff; margin-top: auto; font-family: sans-serif; font-size: 0.85rem; color: #7A756C; line-height: 1.6;">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <div style="margin-bottom: 25px;">
+                <h4 style="margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px; color: var(--text-color); font-size: 0.9rem;">À Propos de Sept à la maison</h4>
+                <p style="max-width: 700px; margin: 0 auto; color: #5A554C;">Sept à la maison est un almanach d'idées quotidiennes conçu pour inspirer votre aménagement intérieur, votre jardin et votre organisation de famille au fil des saisons. Nous dénichons chaque jour des outils pratiques et des produits de qualité.</p>
+            </div>
+            <div style="margin-bottom: 25px; padding: 12px; background-color: var(--bg-creme); border: 1px solid var(--border-color); border-radius: 6px; font-style: italic; color: #6E6A62;">
+                <strong>Notification d'affiliation :</strong> En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises. Les liens d'affiliation utilisés sur ce calendrier mensuel permettent de soutenir le site sans aucun coût supplémentaire pour vous.
+            </div>
+            <div style="border-top: 1px solid var(--border-color); padding-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px 30px; font-size: 0.8rem;">
+                <span><strong>Éditeur :</strong> Théophile Théry</span><span><strong>Contact :</strong> contact@septalamaison.fr</span><span><strong>Hébergement :</strong> Cloudflare Inc. (101 Townsend St, San Francisco, CA 94107)</span><span><strong>Propriété :</strong> © 2026 Sept à la maison. Tous droits réservés.</span>
+            </div>
+        </div>
     </footer>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const moisFr = ["janvier", "fevrier", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "decembre"];
-            
-            // Calculer l'horloge et la date à l'Heure de Paris
-            const dateParis = new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Paris"}));
-            const currentYear = dateParis.getFullYear();
-            const currentMonthIndex = dateParis.getMonth();
-            const currentMonthName = moisFr[currentMonthIndex];
-
-            // 1. Mise à jour de l'année dans le footer de l'accueil
-            document.getElementById("current-year").textContent = currentYear;
-
-            // 2. Formatage du texte du bouton (Première lettre en Majuscule)
-            const monthTextFormatted = currentMonthName.charAt(0).toUpperCase() + currentMonthName.slice(1);
-
-            // 3. Mise à jour du lien d'arborescence nettoyée (Ex: /octobre/) et du texte
-            const mainButton = document.getElementById("dynamic-month-btn");
-            mainButton.href = `${currentMonthName}/`;
-            mainButton.innerHTML = `Inspirations de ${monthTextFormatted} ${currentYear} →`;
-        });
-    </script>
 </body>
 </html>
+
