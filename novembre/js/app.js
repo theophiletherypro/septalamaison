@@ -1,91 +1,103 @@
-let baseDonneesNovembre = {};
+// ==========================================
+// MATRICE DES DONNÉES DE NOVEMBRE 2026
+// Remplissez vos mots-clés et liens ici
+// ==========================================
+const calendarData = {
+    1: { keyword: "Ébéniste", link: "https://amzn.to" },
+    2: { keyword: "Outil PDF", link: "https://septalamaison.fr" },
+    3: { keyword: "Bougie", link: "https://amzn.to" },
+    4: { keyword: "SEO Maison", link: "https://amzn.to" },
+    5: { keyword: "Tapis", link: "https://amzn.to" },
+    // Ajoutez vos jours suivants sur le même modèle jusqu'à 30 :
+    6: { keyword: "Produit 6", link: "#" },
+    7: { keyword: "Produit 7", link: "#" },
+    8: { keyword: "Produit 8", link: "#" },
+    9: { keyword: "Produit 9", link: "#" },
+    10: { keyword: "Produit 10", link: "#" },
+    11: { keyword: "Produit 11", link: "#" },
+    12: { keyword: "Produit 12", link: "#" },
+    13: { keyword: "Produit 13", link: "#" },
+    14: { keyword: "Produit 14", link: "#" },
+    15: { keyword: "Produit 15", link: "#" },
+    16: { keyword: "Produit 16", link: "#" },
+    17: { keyword: "Produit 17", link: "#" },
+    18: { keyword: "Produit 18", link: "#" },
+    19: { keyword: "Produit 19", link: "#" },
+    20: { keyword: "Produit 20", link: "#" },
+    21: { keyword: "Produit 21", link: "#" },
+    22: { keyword: "Produit 22", link: "#" },
+    23: { keyword: "Produit 23", link: "#" },
+    24: { keyword: "Produit 24", link: "#" },
+    25: { keyword: "Produit 25", link: "#" },
+    26: { keyword: "Produit 26", link: "#" },
+    27: { keyword: "Produit 27", link: "#" },
+    28: { keyword: "Produit 28", link: "#" },
+    29: { keyword: "Produit 29", link: "#" },
+    30: { keyword: "Fin Novembre", link: "#" }
+};
 
-async function chargerAlmanach() {
-    try {
-        const reponse = await fetch('./data/novembre.json');
-        const donnees = await reponse.json();
-        
-        donnees.forEach(item => {
-            baseDonneesNovembre[item.jour] = item;
-        });
-
-        construireGrille();
-        detecterLienPinterest();
-    } catch (erreur) {
-        console.error("Erreur de chargement du JSON de Novembre :", erreur);
-        construireGrille();
-    }
-}
-
-function construireGrille() {
-    const grille = document.getElementById('calendar-grid');
-    const totalJour = 30; 
+document.addEventListener("DOMContentLoaded", () => {
+    const grid = document.getElementById("calendar-grid");
     
-    // ÉTAPE ALIGNEMENT : 6 cases vides pour caler le Jour 1 sous le Dimanche
-    for (let e = 0; e < 6; e++) {
-        const caseVide = document.createElement('div');
-        caseVide.className = "cell-empty";
-        grille.appendChild(caseVide);
-    }
+    // 1. Génération des en-têtes de colonnes (Lundi, Mardi...)
+    const daysOfWeek = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+    daysOfWeek.forEach(day => {
+        const header = document.createElement("div");
+        header.className = "cell-header-day";
+        header.textContent = day;
+        grid.appendChild(header);
+    });
 
-    // Injection des 30 jours réels style Swello
-    for (let jour = 1; jour <= totalJour; jour++) {
-        const item = baseDonneesNovembre[jour];
-        const caseCalendrier = document.createElement('div');
+    // 2. Récupération du temps réel pour le verrouillage
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = now.getMonth(); // 10 = Novembre
+    const currentDay = now.getDate();
+
+    // 3. Génération automatique des 30 cases de Novembre
+    for (let day = 1; day <= 30; day++) {
+        const data = calendarData[day] || { keyword: "À découvrir", link: "#" };
         
-        if (item) {
-            caseCalendrier.className = "cell";
-            caseCalendrier.style.cursor = "pointer";
-            caseCalendrier.style.backgroundColor = "var(--swello-case-passé)";
-            caseCalendrier.innerHTML = `
-                <div class="day-number">${jour}</div>
-                <div class="click-badge">✨</div>
-            `;
-            caseCalendrier.onclick = () => ouvrirModale(jour);
-        } else {
-            caseCalendrier.className = "cell cell-future";
-            caseCalendrier.innerHTML = `
-                <div class="card-inner">
-                    <div class="card-front">
-                        <div class="day-number" style="opacity: 0.5;">${jour}</div>
-                    </div>
-                    <div class="card-back">Jour ${jour}</div>
-                </div>
-            `;
-            caseCalendrier.onclick = () => {
-                caseCalendrier.classList.toggle('flipped');
-                setTimeout(() => {
-                    alert(`La case du jour ${jour} ouvrira bientôt ses portes ! 🔒`);
-                    caseCalendrier.classList.remove('flipped');
-                }, 600);
-            };
+        // Création de la case (Lien)
+        const box = document.createElement("a");
+        box.href = data.link;
+        box.className = "calendar-case";
+        box.setAttribute("data-day", day);
+        box.target = "_blank";
+        box.rel = "noopener noreferrer nofollow";
+
+        // Structure interne (Chiffre + Mot)
+        box.innerHTML = `
+            <div class="case-overlay">
+                <span class="day-number">${day}</span>
+                <span class="day-keyword">${data.keyword}</span>
+            </div>
+        `;
+
+        // Logique stricte de dévoilement automatique (Sécurité Novembre 2026)
+        if (currentYear < 2026 || (currentYear === 2026 && currentMonth < 10)) {
+            box.classList.add("locked"); // Le mois n'a pas commencé
+        } else if (currentYear === 2026 && currentMonth === 10) {
+            if (day > currentDay) {
+                box.classList.add("locked"); // Jours futurs verrouillés
+            }
         }
-        grille.appendChild(caseCalendrier);
+        // Si l'année 2026 est passée, tout reste accessible.
+
+        grid.appendChild(box);
     }
-}
 
-function ouvrirModale(jour) {
-    const item = baseDonneesNovembre[jour];
-    if (!item) return;
-    document.getElementById('modal-day').innerText = `Idée du ${jour} Novembre`;
-    document.getElementById('modal-title').innerText = item.titre;
-    document.getElementById('modal-desc').innerText = item.description;
-    document.getElementById('modal-image').innerHTML = `<img src="${item.image}" style="width:100%; height:100%; object-fit:cover;">`;
-    document.getElementById('modal-link').href = item.lienAmazon;
-    document.getElementById('product-modal').classList.add('active');
-}
-
-function closeModal() {
-    document.getElementById('product-modal').classList.remove('active');
-}
-
-// Intercepteur d'URL secret pour Pinterest (?day=X)
-function detecterLienPinterest() {
-    const parametresUrl = new URLSearchParams(window.location.search);
-    const jourCible = parametresUrl.get('day');
-    if (jourCible && baseDonneesNovembre[jourCible]) {
-        ouvrirModale(parseInt(jourCible));
+    // 4. Gestion de la provenance Pinterest (#jourX)
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#jour')) {
+        const dayNumber = hash.replace('#jour', '');
+        const targetCase = document.querySelector(`[data-day="${dayNumber}"]`);
+        
+        if (targetCase && !targetCase.classList.contains('locked')) {
+            setTimeout(() => {
+                targetCase.classList.add('highlight-flash');
+                targetCase.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 400);
+        }
     }
-}
-
-window.addEventListener('DOMContentLoaded', chargerAlmanach);
+});
