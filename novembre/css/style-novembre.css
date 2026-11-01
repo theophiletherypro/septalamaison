@@ -2,6 +2,14 @@
    1. STRUCTURE GLOBALE ET MISE EN PAGE BI-COLONNE (MIROIR SWELLO)
    ========================================================================== */
 
+/* Harmonisation de la police du menu de Novembre */
+header nav a, .dropdown-almanach span {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.3px !important;
+}
+
 .main-layout {
     display: flex;
     gap: 30px;
