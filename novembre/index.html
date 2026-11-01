@@ -14,16 +14,8 @@
 
     <!-- Liaison vers votre feuille de style existante d'Octobre -->
     <link rel="stylesheet" href="../octobre/css/style.css">
-    
-    <style>
-        /* Fenêtre Modale alignée sur votre charte graphique */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(64, 21, 33, 0.4); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-        .modal.active { display: flex; }
-        .modal-content { background: var(--bg-creme); padding: 30px; border-radius: 12px; max-width: 450px; width: 90%; position: relative; box-sizing: border-box; border: 1px solid var(--border-color); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-        .modal-btn { display: inline-block; background-color: var(--swello-semaine); color: #ffffff; text-decoration: none; padding: 12px 24px; font-size: 1rem; border-radius: 30px; letter-spacing: 1px; font-weight: 600; text-align: center; width: 100%; transition: background-color 0.2s; margin-top: 15px; border: none; cursor: pointer; }
-        .modal-btn:hover { background-color: var(--accent-color); }
-        .day-number { position: absolute; top: 10px; left: 10px; font-size: 1.1rem; font-weight: 700; color: var(--text-color); }
-    </style>
+    <!-- Liaison vers les styles spécifiques de Novembre (ajouts de la grille) -->
+    <link rel="stylesheet" href="css/style-novembre.css">
 </head>
 <body>
 
@@ -45,16 +37,8 @@
     <!-- Structure bi-colonne Swello -->
     <main class="main-layout">
         <section class="calendar-wrapper">
-            <div class="calendar-container" id="calendar-grid">
-                <!-- EN-TÊTES DE JOURS FIXES -->
-                <div class="cell-day">Lundi</div>
-                <div class="cell-day">Mardi</div>
-                <div class="cell-day">Mercredi</div>
-                <div class="cell-day">Jeudi</div>
-                <div class="cell-day">Vendredi</div>
-                <div class="cell-day-we">Samedi</div>
-                <div class="cell-day-we">Dimanche</div>
-                <!-- Injecté par le JS -->
+            <div class="calendar-grid" id="calendar-grid">
+                <!-- Les en-têtes de jours et les 30 cases seront générés proprement par le script JS -->
             </div>
         </section>
 
@@ -68,19 +52,7 @@
         </aside>
     </main>
 
-    <!-- Fenêtre Modale de Conversion -->
-    <div id="product-modal" class="modal">
-        <div class="modal-content">
-            <button onclick="closeModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--text-color); font-weight:bold;">&times;</button>
-            <div id="modal-image" style="width:100%; aspect-ratio:1.15; background:#ffffff; border:1px solid var(--border-color); border-radius:8px; overflow:hidden; margin-bottom:15px;"></div>
-            <span id="modal-day" style="font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:var(--accent-color); display:block; margin-bottom:5px; font-weight:700;"></span>
-            <h3 id="modal-title" style="margin-top:0; color:var(--swello-semaine); font-size:1.3rem; letter-spacing:0.5px; font-weight:700;"></h3>
-            <p id="modal-desc" style="color:#6E6A62; font-size:0.9rem; line-height:1.6; margin-top:10px;"></p>
-            <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer nofollow" class="modal-btn">Vérifier le prix sur Amazon →</a>
-        </div>
-    </div>
-
-    <!-- Liaison vers le script isolé de Novembre -->
+    <!-- Liaison vers votre script de Novembre -->
     <script src="js/app.js"></script>
 </body>
 </html>
