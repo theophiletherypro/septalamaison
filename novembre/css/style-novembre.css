@@ -180,3 +180,16 @@
         display: none; /* Masque la ligne fixe des noms de jours sur petit écran mobile */
     } 
 }
+/* Force la liste déroulante à s'afficher au-dessus de la grille du calendrier */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    left: 0;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    z-index: 9999 !important; /* Passe obligatoirement au-dessus des cases */
+    margin-top: 10px;
+}
