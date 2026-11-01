@@ -16,8 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentMonth = now.getMonth(); // 10 = Novembre
     const currentDay = now.getDate();
 
-    // 3. Chargement des données depuis votre fichier novembre.json
-    fetch('./novembre.json')
+    // 3. Chargement des données depuis votre dossier DATA
+    fetch('./data/novembre.json')
         .then(response => response.json())
         .then(calendarData => {
             
@@ -75,4 +75,3 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => console.error("Erreur lors du chargement de novembre.json :", error));
 });
-
