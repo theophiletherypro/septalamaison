@@ -1,3 +1,32 @@
+/* ==========================================================================
+   1. STRUCTURE GLOBALE ET MISE EN PAGE BI-COLONNE (MIROIR SWELLO)
+   ========================================================================== */
+
+.main-layout {
+    display: flex;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+.calendar-wrapper {
+    flex: 1; /* Le calendrier prend tout l'espace disponible à gauche */
+    min-width: 0;
+}
+
+.sidebar-notes {
+    width: 320px; /* Fixe la largeur de la colonne de droite pour le Conseil */
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+
+/* ==========================================================================
+   2. CONFIGURATION DE LA GRILLE DU CALENDRIER
+   ========================================================================== */
+
 /* Définition de la grille avec cases carrées adaptatives */
 .calendar-grid {
     display: grid;
@@ -12,7 +41,13 @@
     padding: 10px 0;
     color: var(--text-color);
     font-size: 0.9rem;
+    font-family: sans-serif;
 }
+
+
+/* ==========================================================================
+   3. STRUCTURE DES CASES ET TEXTE INTÉGRIÉ DYNAMIQUE
+   ========================================================================== */
 
 /* Configuration de la case pour l'image et le texte adaptatif */
 .calendar-case {
@@ -43,9 +78,10 @@
     gap: 5%;
     padding: 8px;
     box-sizing: border-box;
+    font-family: sans-serif;
 }
 
-/* Tailles du texte qui s'adaptent dynamiquement à la case */
+/* Tailles du texte qui s'adaptent dynamiquement à la taille de la case */
 .day-number {
     color: #ffffff;
     font-weight: 800;
@@ -62,7 +98,10 @@
     line-height: 1.2;
 }
 
-/* --- LOGIQUE DES IMAGES PAR SEMAINE (Ordre de base linéaire) --- */
+
+/* ==========================================================================
+   4. ROULEMENT AUTOMATIQUE DES IMAGES PAR SEMAINE
+   ========================================================================== */
 
 /* Semaine 1 (Jours 1 à 7) */
 .calendar-case[data-day="1"], .calendar-case[data-day="3"], .calendar-case[data-day="5"], .calendar-case[data-day="7"] { background-image: url('../img/11-11.webp'); }
@@ -85,7 +124,11 @@
 .calendar-case[data-day="30"] { background-image: url('../img/11-52.webp'); }
 
 
-/* --- ÉTATS SÉCURITÉ / VERROUILLAGE DES JOURS FUTURS --- */
+/* ==========================================================================
+   5. SÉCURITÉ DE VERROUILLAGE ET EFFETS PINTEREST
+   ========================================================================== */
+
+/* ÉTATS SÉCURITÉ / VERROUILLAGE DES JOURS FUTURS */
 .calendar-case.locked {
     pointer-events: none;
     filter: grayscale(100%) opacity(0.4);
@@ -94,7 +137,7 @@
     visibility: hidden; /* Masque le nom du produit si le jour n'est pas venu */
 }
 
-/* --- EFFET FLASH ARRIVÉE DE PINTEREST (#jourX) --- */
+/* EFFET FLASH ARRIVÉE DE PINTEREST (#jourX) */
 @keyframes flashEffect {
     0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.8); }
     50% { transform: scale(1.06); box-shadow: 0 0 25px 12px rgba(255, 215, 0, 1); }
@@ -112,10 +155,27 @@
     content: "" !important;
 }
 
-/* Adaptabilité mobile pour la grille */
+
+/* ==========================================================================
+   6. RESPONSIVE DESIGN (ADAPTABILITÉ MOBILES ET TABLETTES)
+   ========================================================================== */
+
+@media (max-width: 950px) {
+    .main-layout {
+        flex-direction: column; /* Aligne le bloc conseil tout en bas uniquement sur mobile et tablette */
+        gap: 20px;
+    }
+    .sidebar-notes {
+        width: 100%; /* Le bloc prend toute la largeur disponible en bas */
+    }
+}
+
 @media (max-width: 600px) {
     .calendar-grid {
-        grid-template-columns: repeat(4, 1fr); /* Passe à 4 colonnes sur petit écran pour garder les cases lisibles */
+        grid-template-columns: repeat(4, 1fr); /* Passe la grille à 4 colonnes sur smartphone pour garder les cases lisibles */
+        gap: 8px;
     }
-    .cell-header-day { display: none; } /* Cache les noms de jours fixes sur mobile */
+    .cell-header-day { 
+        display: none; /* Masque la ligne fixe des noms de jours sur petit écran mobile */
+    } 
 }
