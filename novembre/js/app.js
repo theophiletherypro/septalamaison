@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const grid = document.getElementById("calendar-grid");
 
-    // 1. Génération des en-têtes de colonnes (Lundi, Mardi...)
-    const daysOfWeek = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+    // 1. GÉNÉRATION DES EN-TÊTES DE COLONNES (Réalignée : commence par le Dimanche)
+    const daysOfWeek = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
     daysOfWeek.forEach(day => {
         const header = document.createElement("div");
         header.className = "cell-header-day";
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         grid.appendChild(header);
     });
 
-    // 2. Récupération du temps réel (Novembre 2026)
+    // 2. Récupération du temps réel (Spécial Novembre 2026)
     const now = new Date();
     const currentYear = now.getFullYear();
     const currentMonth = now.getMonth(); // 10 = Novembre
@@ -21,16 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.json())
         .then(calendarData => {
             
-            // Indexation des données par le numéro du jour pour la boucle
             const dataIndexedByDay = {};
             calendarData.forEach(item => {
-                // Associe la ligne au numéro du jour (ex: item.jour vaut 1, 2, 3...)
                 dataIndexedByDay[parseInt(item.jour, 10)] = item;
             });
 
             // Génération automatique des 30 cases de Novembre
             for (let day = 1; day <= 30; day++) {
-                // Récupère la ligne correspondant au jour, ou applique un modèle vide par défaut
                 const data = dataIndexedByDay[day] || { titre: "", lienhyp: "" };
                 
                 const box = document.createElement("a");
@@ -49,10 +46,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // Sécurité stricte de verrouillage temporel (Spécial Novembre 2026)
                 if (currentYear < 2026 || (currentYear === 2026 && currentMonth < 10)) {
-                    box.classList.add("locked"); // Le mois n'a pas commencé
+                    box.classList.add("locked"); 
                 } else if (currentYear === 2026 && currentMonth === 10) {
                     if (day > currentDay) {
-                        box.classList.add("locked"); // Jours futurs verrouillés
+                        box.classList.add("locked"); 
                     }
                 }
 
