@@ -66,19 +66,38 @@
 <body>
     <header>
         <h1>Sept à la maison</h1>
-        <nav>
-            <a href="./" style="text-decoration: underline;">Accueil</a>
-            <div class="dropdown-almanach" style="padding-bottom: 10px; margin-bottom: -10px;">
-                <button style="background: none; border: none; color: var(--text-color); font-weight: 500; font-size: 1rem; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 4px; font-family: sans-serif;">
-                    Calendriers <span>▼</span>
-                </button>
-                <div class="dropdown-content">
-                    <a href="https://septalamaison.fr" style="color: #ffffff !important; font-weight: bold; background-color: var(--swello-semaine);">✨ Novembre 2026</a>
-                    <a href="janvier/">Janvier</a><a href="fevrier/">Février</a><a href="mars/">Mars</a><a href="avril/">Avril</a><a href="mai/">Mai</a><a href="juin/">Juin</a><a href="juillet/">Juillet</a><a href="aout/">Août</a><a href="septembre/">Septembre</a><a href="octobre/">Octobre</a><a href="decembre/">Décembre</a>
+               <nav style="display: flex; gap: 25px; align-items: center; font-family: 'Segoe UI', sans-serif; font-size: 1rem; font-weight: 500;">
+            <!-- 1. ACCUEIL -->
+            <a href="https://septalamaison.fr" style="color: var(--text-color); text-decoration: none; padding: 5px 0;">Accueil</a>
+            
+            <!-- 2. ONGLET CALENDRIERS DÉROULANT ALIGNÉ -->
+            <div class="dropdown-almanach" style="position: relative; display: inline-block; padding: 5px 0;">
+                <span style="color: var(--text-color); cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                    Calendriers <span style="font-size: 0.7rem; color: #7A756C;">▼</span>
+                </span>
+                <div class="dropdown-content" style="display: none; position: absolute; left: 0; background-color: #ffffff; min-width: 160px; box-shadow: 0px 8px 16px rgba(0,0,0,0.1); border: 1px solid var(--border-color); border-radius: 6px; z-index: 1000; margin-top: 10px; max-height: 400px; overflow-y: auto;">
+                    <a href="https://septalamaison.frnovembre/" style="color: #ffffff !important; padding: 12px 15px; text-decoration: none; display: block; font-size: 0.95rem; font-weight: bold; background-color: var(--swello-semaine); border-bottom: 2px solid var(--border-color);">✨ Novembre 2026</a>
+                    <a href="https://septalamaison.frjanvier/" style="padding: 10px 15px; text-decoration: none; display: block; font-size: 0.9rem; border-bottom: 1px solid var(--border-color);">Janvier</a>
+                    <a href="https://septalamaison.frfevrier/" style="padding: 10px 15px; text-decoration: none; display: block; font-size: 0.9rem; border-bottom: 1px solid var(--border-color);">Février</a>
+                    <a href="https://septalamaison.frmars/" style="padding: 10px 15px; text-decoration: none; display: block; font-size: 0.9rem; border-bottom: 1px solid var(--border-color);">Mars</a>
+                    <a href="https://septalamaison.fravril/" style="padding: 10px 15px; text-decoration: none; display: block; font-size: 0.9rem; border-bottom: 1px solid var(--border-color);">Avril</a>
+                    <a href="https://septalamaison.frmai/" style="padding: 10px 15px; text-decoration: none; display: block; font-size: 0.9rem; border-bottom: 1px solid var(--border-color);">Mai</a>
+                    <a href="https://septalamaison.frjuin/" style="padding: 10px 15px; text-decoration: none; display: block; font-size: 0.9rem; border-bottom: 1px solid var(--border-color);">Juin</a>
+                    <a href="https://septalamaison.frjuillet/" style="padding: 10px 15px; text-decoration: none; display: block; font-size: 0.9rem; border-bottom: 1px solid var(--border-color);">Juillet</a>
+                    <a href="https://septalamaison.fraout/" style="padding: 10px 15px; text-decoration: none; display: block; font-size: 0.9rem; border-bottom: 1px solid var(--border-color);">Août</a>
+                    <a href="https://septalamaison.frseptembre/" style="padding: 10px 15px; text-decoration: none; display: block; font-size: 0.9rem; border-bottom: 1px solid var(--border-color);">Septembre</a>
+                    <a href="https://septalamaison.froctobre/" style="padding: 10px 15px; text-decoration: none; display: block; font-size: 0.9rem; border-bottom: 1px solid var(--border-color);">Octobre</a>
+                    <a href="https://septalamaison.frdecembre/" style="padding: 10px 15px; text-decoration: none; display: block; font-size: 0.9rem;">Décembre</a>
                 </div>
             </div>
-            <a href="ressources.html">Ressources</a>
+
+            <!-- 3. RESSOURCES -->
+            <a href="https://septalamaison.frressources.html" style="color: var(--text-color); text-decoration: none; padding: 5px 0;">Ressources</a>
+
+            <!-- 4. À PROPOS (Ancre vers le footer) -->
+            <a href="#about" style="color: var(--text-color); text-decoration: none; padding: 5px 0;">À Propos</a>
         </nav>
+
     </header>
     <div class="hero">
         <h2>Sept à la maison</h2>
